@@ -28,11 +28,13 @@ jobs:
           mkdir -p build
           swift test --parallel --num-workers 4 --xunit-output build/full-swift-tests.xml 2>&1 | tee build/full-swift-tests.log
       - name: Fork security and update isolation
+        if: ${{ !cancelled() }}
         run: |
           python3 scripts/test-liman-security.py
           python3 scripts/test-liman-configuration.py
           python3 scripts/test-liman-updates.py
       - name: Package and verify native app
+        if: ${{ !cancelled() }}
         run: |
           NASHI_SIGNING_MODE=ad-hoc scripts/build-app.sh debug
           python3 scripts/test-liman-app.py --with-tools

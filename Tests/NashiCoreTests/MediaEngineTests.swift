@@ -317,8 +317,9 @@ final class MediaEngineTests: XCTestCase {
         XCTAssertTrue(try FileManager.default.contentsOfDirectory(at: options.outputDirectory!, includingPropertiesForKeys: nil).allSatisfy { !$0.lastPathComponent.hasPrefix(".nashi-") })
         let inFlight = CancellationToken()
         options.outputDirectory = f.directory.appendingPathComponent("Cancelled", isDirectory: true); options.width = 2048; options.height = 1536
-        DispatchQueue.global().asyncAfter(deadline: .now() + 0.3) { inFlight.cancel() }
-        XCTAssertThrowsError(try MediaEngine.convert(f.video, to: "webm", options: options, token: inFlight)) { error in
+        // Wait for encoder output: a fixed delay can cancel during ffprobe,
+        // before the destination exists, on a busy test runner.
+        XCTAssertThrowsError(try MediaEngine.convert(f.video, to: "webm", options: options, token: inFlight, progress: { _, _ in inFlight.cancel() })) { error in
             guard case NashiError.cancelled = error else { return XCTFail("Expected cancellation, received \(error)") }
         }
         XCTAssertTrue(try FileManager.default.contentsOfDirectory(at: options.outputDirectory!, includingPropertiesForKeys: nil).isEmpty)
