@@ -1,17 +1,22 @@
 #!/usr/bin/env python3
 """Smoke-test the packaged app's native conversions without launching its UI."""
-import hashlib
+import argparse
 import json
 from pathlib import Path
 import plistlib
 import struct
 import subprocess
 import tempfile
+import wave
 import zipfile
 import zlib
 
 ROOT = Path(__file__).resolve().parent.parent
-APP = ROOT / "build/Liman.app"
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("--app", type=Path, default=ROOT / "build/Liman.app")
+parser.add_argument("--with-tools", action="store_true", help="Also exercise installed FFmpeg and Office runtimes")
+args = parser.parse_args()
+APP = args.app.resolve()
 EXE = APP / "Contents/MacOS/Liman"
 passed = 0
 
@@ -22,7 +27,7 @@ def check(name, value):
     print("PASS", name)
 
 def run(*args):
-    return json.loads(subprocess.check_output([str(EXE), *map(str, args)], text=True))
+    return json.loads(subprocess.check_output([str(EXE), *map(str, args)], text=True, timeout=120))
 
 info = plistlib.loads((APP / "Contents/Info.plist").read_bytes())
 check("packaged independent identity", info["CFBundleIdentifier"] == "local.liman.filetoolkit" and info["CFBundleDisplayName"] == "Liman")
@@ -57,4 +62,20 @@ with tempfile.TemporaryDirectory(prefix="liman-app-smoke-") as directory:
     result = subprocess.run([str(EXE), "tool", "extractArchive", str(hostile), "--options", options, "--json"], capture_output=True, text=True)
     after = sorted(str(p.relative_to(root / "exports")) for p in (root / "exports").rglob("*"))
     check("packaged hostile archive rejected with clean rollback", result.returncode != 0 and before == after and not (root / "escaped.txt").exists())
+    if args.with_tools:
+        audio = root / "source.wav"
+        with wave.open(str(audio), "wb") as output:
+            output.setnchannels(1)
+            output.setsampwidth(2)
+            output.setframerate(16000)
+            output.writeframes(b"\0\0" * 16000)
+        mp3 = run("convert", "mp3", audio, "--options", options, "--json")[0]
+        media = run("inspect", mp3)
+        check("real FFmpeg export and ffprobe", media["hasAudio"] and abs(media["duration"] - 1) < 0.3)
+        document = root / "source.rtf"
+        document.write_text(r"{\rtf1\ansi Liman installation test.}")
+        exported = run("convert", "pdf", document, "--options", options, "--json")[0]
+        check("real office PDF export", run("inspect", exported)["pages"] == 1)
+        tools = run("dependencies")
+        check("independent runtime locations", "Liman/Tools" in tools["ffmpeg"] and "Liman/Tools" in tools["soffice"] and "Liman.app" in tools["exiftool"])
 print(f"{passed} packaged app checks passed (UI not launched)")

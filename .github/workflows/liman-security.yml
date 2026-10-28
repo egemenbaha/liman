@@ -26,7 +26,7 @@ jobs:
         run: |
           set -o pipefail
           mkdir -p build
-          swift test 2>&1 | tee build/full-swift-tests.log
+          swift test --parallel --num-workers 4 --xunit-output build/full-swift-tests.xml 2>&1 | tee build/full-swift-tests.log
       - name: Fork security and update isolation
         run: |
           python3 scripts/test-liman-security.py
@@ -35,7 +35,7 @@ jobs:
       - name: Package and verify native app
         run: |
           NASHI_SIGNING_MODE=ad-hoc scripts/build-app.sh debug
-          python3 scripts/test-liman-app.py
+          python3 scripts/test-liman-app.py --with-tools
           python3 scripts/test-native-ui.py --app build/Liman.app/Contents/MacOS/Liman --output build/native-ui
       - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         if: always()
@@ -43,6 +43,7 @@ jobs:
           name: macos-verification
           path: |
             build/full-swift-tests.log
+            build/full-swift-tests.xml
             build/native-ui
           retention-days: 7
   windows:
