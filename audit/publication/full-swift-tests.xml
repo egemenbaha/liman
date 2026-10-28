@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<testsuites>
+<testsuite name="TestResults" errors="0" tests="294" failures="0" time="909.3373714539998">
+<testcase classname="NashiCoreTests.AnnotationDrawingTests" name="testClosedFreehandLoopIsNotDiscardedWhenItsEndpointsMatch" time="0.428640917">
+</testcase>
+<testcase classname="NashiCoreTests.AnnotationDrawingTests" name="testAreaToolsNeverStoreAFreehandTrail" time="0.428641875">
+</testcase>
+<testcase classname="NashiCoreTests.AnnotationDrawingTests" name="testFreehandAndHighlightKeepTheFullCurveAndItsBounds" time="0.428213041">
+</testcase>
+<testcase classname="NashiCoreTests.AnnotationDrawingTests" name="testActiveStyleIsPreserved" time="0.428319417">
+</testcase>
+<testcase classname="NashiCoreTests.AnnotationDrawingTests" name="testHorizontalAndVerticalStrokesAreValidButDegenerateShapesAreNot" time="0.099332958">
+</testcase>
+<testcase classname="NashiCoreTests.AnnotationDrawingTests" name="testLinesAndArrowsUseOnlyTheTwoEndpoints" time="0.099299292">
+</testcase>
+<testcase classname="NashiCoreTests.AnnotationDrawingTests" name="testReverseDragNormalizesShapeBoundsButKeepsLineDirection" time="0.099523125">
+</testcase>
+<testcase classname="NashiCoreTests.AnnotationDrawingTests" name="testFreehandAndRectanglePaintOnlyTheirOwnGeometry" time="0.099773417">
+</testcase>
+<testcase classname="NashiCoreTests.AppLocalizationTests" name="testEveryToolAndWindowPlacementHasTurkishCopy" time="0.126668875">
+</testcase>
+<testcase classname="NashiCoreTests.AnnotationDrawingTests" name="testStraightLineDoesNotFollowTheMouseDetour" time="0.12690825">
+</testcase>
+<testcase classname="NashiCoreTests.AppLocalizationTests" name="testCatalogPlaceholdersMatchWithoutChangingFormatsOrShortcuts" time="0.126962625">
+</testcase>
+<testcase classname="NashiCoreTests.AppLocalizationTests" name="testFallbackAndFormattingKeepOriginalInput" time="0.126514458">
+</testcase>
+<testcase classname="NashiCoreTests.ArchiveLinkBoundaryTests" name="testDeferredEntryCannotCreateChildrenThroughAnInRootDirectoryAlias" time="0.111295541">
+</testcase>
+<testcase classname="NashiCoreTests.AppLocalizationTests" name="testTurkishUppercaseKeepsLatinProductAndKeyNames" time="0.111362875">
+</testcase>
+<testcase classname="NashiCoreTests.ArchiveLinkBoundaryTests" name="testDanglingSymbolicDestinationIsRejectedBeforeCreatingItsTarget" time="0.111446">
+</testcase>
+<testcase classname="NashiCoreTests.ArchiveLinkBoundaryTests" name="testLeafSymbolicLinksForwardChainsAndHardLinksRemainReadable" time="0.111162333">
+</testcase>
+<testcase classname="NashiUpdatesTests.BrandMigrationTests" name="testOldSignedArchiveURLsAreAcceptedOnlyForThisRename" time="0.088771541">
+</testcase>
+<testcase classname="NashiCoreTests.ArchiveLinkBoundaryTests" name="testRefusedArchiveBatchKeepsSourcesPreviousExportsAndRemovesStaging" time="0.104944333">
+</testcase>
+<testcase classname="NashiCoreTests.ArchiveResourceLimitsTests" name="testEntryAndExpandedByteLimits" time="0.116815916">
+</testcase>
+<testcase classname="NashiCoreTests.ArchiveLinkBoundaryTests" name="testPreexistingInRootDirectoryAliasesAreNotUsedForAnyEntryType" time="0.117323208">
+</testcase>
+<testcase classname="NashiUpdatesTests.BrandMigrationTests" name="testRepositoryRenameUsesOnlyTheExistingCredentialAccount" time="0.142043042">
+</testcase>
+<testcase classname="NashiUpdatesTests.BrandMigrationTests" name="testSavedConnectionIsRenamedWithoutTouchingSecretsOrPreferences" time="0.144076375">
+</testcase>
+<testcase classname="NashiCoreTests.DocumentAuditRegressionTests" name="testCP1252SubtitlesKeepTimedCuesAndAccentedText" time="0.171384959">
+</testcase>
+<testcase classname="NashiCoreTests.CommandLineTests" name="testPlainPathAndFileURLDestinationsPreserveSourceAndExistingFiles" time="0.209306542">
+</testcase>
+<testcase classname="NashiCoreTests.DocumentAuditRegressionTests" name="testLargeRepresentableSubtitleTimesAndMillisecondPrecisionRemainValid" time="0.145824417">
+</testcase>
+<testcase classname="NashiCoreTests.DocumentAuditRegressionTests" name="testOversizedSubtitleTimesThrowWithoutPublishingOutput" time="0.109426958">
+</testcase>
+<testcase classname="NashiCoreTests.DocumentAuditRegressionTests" name="testCP1252TextPreservesAccentsAndPunctuationThroughOfficeConversion" time="7.049023375">
+</testcase>
+<testcase classname="NashiCoreTests.DocumentAuditRegressionTests" name="testUTF16BOMAndBOMLessTextRetainUnicode" time="6.909630875">
+</testcase>
+<testcase classname="NashiCoreTests.DocumentEngineTests" name="testArchiveCompressionProfilesAffectZIPAndGZIPAndRemainExtractable" time="0.235430834">
+</testcase>
+<testcase classname="NashiCoreTests.DocumentEngineTests" name="testArchiveRejectsTraversalAbsolutePathsEscapingLinksAndInvalidContainers" time="0.082734084">
+</testcase>
+<testcase classname="NashiCoreTests.DocumentEngineTests" name="testCancellationProducesNoPublishedDocumentOrExtractedFolder" time="0.078901083">
+</testcase>
+<testcase classname="NashiCoreTests.CommandLineTests" name="testPartialNestedImageOptionsUseDefaultsAndPerformRealEdits" time="7.991237125">
+</testcase>
+<testcase classname="NashiCoreTests.CommandLineTests" name="testDependencyDiscoveryReturnsTheExifToolScriptInsteadOfItsDirectory" time="7.991633">
+</testcase>
+<testcase classname="NashiCoreTests.DocumentEngineTests" name="testEncryptedPDFRequiresAndAcceptsTheSuppliedPassword" time="0.334826041">
+</testcase>
+<testcase classname="NashiCoreTests.DocumentEngineTests" name="testFixedEPUBKeepsEveryPDFPageViewportAndRenderedImage" time="3.31803975">
+</testcase>
+<testcase classname="NashiCoreTests.DocumentEngineTests" name="testFixedEPUBIsAlsoAvailableForTextDocuments" time="3.318158375">
+</testcase>
+<testcase classname="NashiCoreTests.DocumentEngineTests" name="testOfflinePagesPreservesEditableParagraphsTablesAndEmbeddedImages" time="11.101539667">
+</testcase>
+<testcase classname="NashiCoreTests.DocumentEngineTests" name="testPagesRejectsMalformedInputAndCancellationPreservesSource" time="0.248157125">
+</testcase>
+<testcase classname="NashiCoreTests.DocumentEngineTests" name="testPDFImageScannerRespectsNestedTransformsAndFormImages" time="0.128540292">
+</testcase>
+<testcase classname="NashiCoreTests.DocumentEngineTests" name="testNativePagesRoundTripUsesCopiedInputs" time="15.278358083">
+</testcase>
+<testcase classname="NashiCoreTests.DocumentEngineTests" name="testPDFPreservePagesModeEmbedsOneFullPageImagePerPage" time="13.97127775">
+</testcase>
+<testcase classname="NashiCoreTests.DocumentEngineTests" name="testOfficeTextMarkdownAndEPUBRoutesPreserveContent" time="27.408259666">
+</testcase>
+<testcase classname="NashiCoreTests.DocumentEngineTests" name="testRTFDAttachmentSurvivesDOCXAndSelfContainedHTML" time="8.611778333">
+</testcase>
+<testcase classname="NashiCoreTests.DocumentEngineTests" name="testRichPDFCreatesEditableParagraphsTablesAndEmbeddedPicturesInDOCX" time="11.5855195">
+</testcase>
+<testcase classname="NashiCoreTests.DocumentEngineTests" name="testScannedPDFUsesLocalOCRForTextConversion" time="2.314033917">
+</testcase>
+<testcase classname="NashiCoreTests.DocumentEngineTests" name="testPDFToEditableTextDOCXXLSXEPUBAndPageBasedPPTX" time="40.729311">
+</testcase>
+<testcase classname="NashiCoreTests.DocumentEngineTests" name="testRTFRTFDAndLegacyResourceForkClippingToDOCX" time="20.743563458">
+</testcase>
+<testcase classname="NashiCoreTests.DocumentEngineTests" name="testStoredRARAndOrdinaryGZIPAreReadable" time="0.719108792">
+</testcase>
+<testcase classname="NashiCoreTests.DocumentEngineTests" name="testSubtitleRoundTripKeepsTimingUnicodeAndCueText" time="0.221813208">
+</testcase>
+<testcase classname="NashiCoreTests.DocumentEngineTests" name="testUpstreamRAR4AndCompressedRAR5Interoperability" time="0.215836625">
+</testcase>
+<testcase classname="NashiCoreTests.DocumentEngineTests" name="testUTF16TextInputIsNormalizedBeforeOfficeImport" time="6.549536375">
+</testcase>
+<testcase classname="NashiCoreTests.DocumentEngineTests" name="testWebVTTSkipsNotesAndStylesAndUnderstandsMinuteTimestamps" time="0.143006417">
+</testcase>
+<testcase classname="NashiCoreTests.DocumentEngineTests" name="testSpreadsheetConversionsPreserveQuotedCellsUnicodeAndNumbers" time="25.319500625">
+</testcase>
+<testcase classname="NashiCoreTests.DocumentEngineTests" name="testSpreadsheetFormulaSurvivesXLSXODSRoundTrip" time="11.837516625">
+</testcase>
+<testcase classname="NashiCoreTests.DocumentEngineTests" name="testZIPTARGZIPRoundTripsNestedFilesAndUnicodeWithoutOverwritingOriginals" time="0.301833583">
+</testcase>
+<testcase classname="NashiCoreTests.EPUBAuditRegressionTests" name="testTolerantHTMLFallbackDecodesUTF8BeforeParsing" time="2.830697792">
+</testcase>
+<testcase classname="NashiCoreTests.EPUBAuditRegressionTests" name="testHTML5CharsetUTF8KeepsAccentsWithoutXMLDeclaration" time="2.983911292">
+</testcase>
+<testcase classname="NashiCoreTests.EPUBAuditRegressionTests" name="testTolerantHTMLFallbackPreservesDeclaredCP1252" time="2.740043583">
+</testcase>
+<testcase classname="NashiCoreTests.ExportTransactionTests" name="testLaterPublishFailureRollsBackEarlierExportsButKeepsExistingFiles" time="0.09504875">
+</testcase>
+<testcase classname="NashiCoreTests.ExportTransactionTests" name="testMetadataEditorReadRejectsCorruptInputAndCancellation" time="0.091205958">
+</testcase>
+<testcase classname="NashiCoreTests.ExportTransactionTests" name="testOnlyReportedOutputsPublishAndNestedFolderKeepsItsContentsAndCollisionSafeName" time="0.12071">
+</testcase>
+<testcase classname="NashiCoreTests.EPUBAuditRegressionTests" name="testXMLDeclarationHonorsNonUTF8ChapterEncoding" time="2.998484584">
+</testcase>
+<testcase classname="NashiUpdatesTests.GitHubUpdateTransportTests" name="testArchiveScopeRequiresAnExactRepositoryAndPositiveAssetID" time="0.097569417">
+</testcase>
+<testcase classname="NashiUpdatesTests.GitHubUpdateTransportTests" name="testArchiveStreamsExactBytesLengthAndFilenameThroughTheAdapter" time="0.69118775">
+</testcase>
+<testcase classname="NashiUpdatesTests.GitHubUpdateTransportTests" name="testAssetRedirectStripsTheTokenBeforeTheCDNRequest" time="0.1424715">
+</testcase>
+<testcase classname="NashiUpdatesTests.GitHubUpdateTransportTests" name="testCDNRedirectCreatesAFreshRequestWithoutCredentials" time="0.094316125">
+</testcase>
+<testcase classname="NashiUpdatesTests.GitHubUpdateTransportTests" name="testEarlyArchiveEOFDoesNotReturnATruncatedSuccess" time="0.11038">
+</testcase>
+<testcase classname="NashiCoreTests.ExportTransactionTests" name="testOptimizedSymlinkInputsProduceIndependentRegularFilesForCompressionAndMetadataRemoval" time="3.897959958">
+</testcase>
+<testcase classname="NashiUpdatesTests.GitHubUpdateTransportTests" name="testHTTPFailuresAreSanitizedAndDistinguishTokenAccessAndRateLimits" time="0.132905875">
+</testcase>
+<testcase classname="NashiUpdatesTests.GitHubUpdateTransportTests" name="testLatestAppcastDownloadsExactBytesWithTheBinaryAcceptHeader" time="0.09641125">
+</testcase>
+<testcase classname="NashiUpdatesTests.GitHubUpdateTransportTests" name="testLoopbackServesTheSignedFeedUnchangedAndRejectsWrongRoutesAndMethods" time="0.104881584">
+</testcase>
+<testcase classname="NashiUpdatesTests.GitHubUpdateTransportTests" name="testOversizedAppcastIsRejectedBeforeDownloadingTheAsset" time="0.104012583">
+</testcase>
+<testcase classname="NashiUpdatesTests.GitHubUpdateTransportTests" name="testRebrandFetchesCurrentRepositoryWithoutContactingTheOldName" time="0.09033325">
+</testcase>
+<testcase classname="NashiUpdatesTests.GitHubUpdateTransportTests" name="testRebrandDoesNotFallBackOnAuthorizationFailure" time="0.142663375">
+</testcase>
+<testcase classname="NashiUpdatesTests.GitHubUpdateTransportTests" name="testRebrandUsesTheExactPreviousRepositoryOnlyBeforeRename" time="0.104955375">
+</testcase>
+<testcase classname="NashiUpdatesTests.GitHubUpdateTransportTests" name="testRepositoryValidationAndCodableCannotBypassScope" time="0.0955075">
+</testcase>
+<testcase classname="NashiUpdatesTests.GitHubUpdateTransportTests" name="testValidationAcceptsAnAccessibleRepositoryWithoutAnyRelease" time="0.143655666">
+</testcase>
+<testcase classname="NashiUpdatesTests.GitHubUpdateTransportTests" name="testStopCancelsTheUpstreamArchiveAndTheLoopbackConnection" time="0.182681041">
+</testcase>
+<testcase classname="NashiCoreTests.HTMLResourceBoundaryTests" name="testRemoteOutsideAndUnquotedResourcesAreExcluded" time="0.153926083">
+</testcase>
+<testcase classname="NashiCoreTests.ImageAuditRegressionTests" name="testArbitraryPositiveAngleUsesTheSameClockwiseConvention" time="0.449698917">
+</testcase>
+<testcase classname="NashiCoreTests.ImageColorOpacityRegressionTests" name="testCollageBackgroundOpacitySurvivesColorSerializationAndPNGExport" time="0.154729167">
+</testcase>
+<testcase classname="NashiCoreTests.ImageAuditRegressionTests" name="testEditorQuarterTurnsRotateInTheLabelledDirection" time="0.510542875">
+</testcase>
+<testcase classname="NashiCoreTests.ImageColorOpacityRegressionTests" name="testFrameBackgroundOpacitySurvivesTheSharedBindingFormat" time="0.117171417">
+</testcase>
+<testcase classname="NashiCoreTests.ImageColorOpacityRegressionTests" name="testFrameExportPreservesRequestedOpacityForPNGAndJPEGInputs" time="0.127245375">
+</testcase>
+<testcase classname="NashiCoreTests.EPUBAuditRegressionTests" name="testUTF8ChaptersWithoutXMLDeclarationPreserveSpineTextAndImages" time="5.732133">
+</testcase>
+<testcase classname="NashiCoreTests.ImageCropBoundsRegressionTests" name="testFractionalBoundsAreValidatedBeforePixelQuantization" time="0.170622">
+</testcase>
+<testcase classname="NashiCoreTests.ImageCropBoundsRegressionTests" name="testFractionalAspectPresetUsesTheDisplayedWholePixelGeometry" time="0.303095625">
+</testcase>
+<testcase classname="NashiCoreTests.ImageCropBoundsRegressionTests" name="testFractionalDragFloorsEachComponentWithoutAddingPixels" time="0.205979125">
+</testcase>
+<testcase classname="NashiCoreTests.ImageCropBoundsRegressionTests" name="testInvalidOriginsDimensionsAndExtremeCoordinatesAreRejected" time="0.17878825">
+</testcase>
+<testcase classname="NashiCoreTests.ImageCropBoundsRegressionTests" name="testPartiallyOutOfBoundsCropWithResizeIsRejected" time="0.137009959">
+</testcase>
+<testcase classname="NashiCoreTests.ImageCropBoundsRegressionTests" name="testValidCropExportKeepsAnExplicitResize" time="0.413158042">
+</testcase>
+<testcase classname="NashiCoreTests.ImageMediaBatchAuditTests" name="testCancellationBetweenSuccessfulBatchItemsRollsBackAndKeepsPreviousExport" time="0.138731375">
+</testcase>
+<testcase classname="NashiCoreTests.ImageCropBoundsRegressionTests" name="testValidExactCropPreservesGeometryAndSourcePixels" time="0.501895292">
+</testcase>
+<testcase classname="NashiCoreTests.ImageCropBoundsRegressionTests" name="testMixedSizeBatchRollsBackAndNamesTheFailingInput" time="0.945286917">
+</testcase>
+<testcase classname="NashiCoreTests.ImageMediaBatchAuditTests" name="testFailedImageToolBatchRollsBackAndKeepsPreviousExport" time="0.473947875">
+</testcase>
+<testcase classname="NashiCoreTests.ImageMediaBatchAuditTests" name="testFailedMediaConversionBatchRollsBackAndKeepsPreviousExport" time="1.208262791">
+</testcase>
+<testcase classname="NashiCoreTests.ImageMediaBatchAuditTests" name="testFailedCompressionBatchRollsBackAndKeepsPreviousExport" time="1.6157855">
+</testcase>
+<testcase classname="NashiCoreTests.DocumentEngineTests" name="testAllSixteenAdvertisedPagesRoutesRunOfflineWithoutApplePages" time="87.897612541">
+</testcase>
+<testcase classname="NashiCoreTests.ImageOrientationRegressionTests" name="testStrippingMetadataKeepsTheNormalizedDisplayedImage" time="5.165083125">
+</testcase>
+<testcase classname="NashiCoreTests.ImageParityTests" name="testCollageLayoutsFitFillAndSelectionOrder" time="0.064212917">
+</testcase>
+<testcase classname="NashiCoreTests.ImageParityTests" name="testCompressionResizesAndMeetsTargetWithoutChangingOriginal" time="0.199850208">
+</testcase>
+<testcase classname="NashiCoreTests.ImageOrientationRegressionTests" name="testPNGWithoutOrientationExportsUprightWithPreservedTags" time="15.482602584">
+</testcase>
+<testcase classname="NashiCoreTests.ImageParityTests" name="testCropPreviewAndFrameProduceRequestedGeometry" time="0.181088041">
+</testcase>
+<testcase classname="NashiCoreTests.ImageOrientationRegressionTests" name="testRotatedJPEGAndXMPOrientationAreNormalizedAfterPixelRotation" time="16.37824325">
+</testcase>
+<testcase classname="NashiCoreTests.ImageParityTests" name="testEveryPhotoAdjustmentChangesTheRenderedPixels" time="1.389982416">
+</testcase>
+<testcase classname="NashiCoreTests.ImageParityTests" name="testFaceDetectionOnPublicFixtureDrivesActualRedaction" time="0.496700625">
+</testcase>
+<testcase classname="NashiCoreTests.ImageParityTests" name="testGradientImageBlurAndPositionChangeTheBackdrop" time="0.503950583">
+</testcase>
+<testcase classname="NashiCoreTests.ImageParityTests" name="testConversionMetadataPreferenceAndAnnotationFontsHaveRealEffects" time="8.8925875">
+</testcase>
+<testcase classname="NashiCoreTests.ImageParityTests" name="testLocalTextDetectionReturnsPixelBoxesAndDrivesRedaction" time="2.316304625">
+</testcase>
+<testcase classname="NashiCoreTests.ImageParityTests" name="testJPEGWithoutOrientationExposesAndRetainsExistingAuthorWhenAnotherTagChanges" time="11.768176375">
+</testcase>
+<testcase classname="NashiCoreTests.ImageParityTests" name="testDeclaredCustomXMPFieldsCanBeEditedAndRemovedWithoutReencoding" time="16.067962625">
+</testcase>
+<testcase classname="NashiCoreTests.ImageParityTests" name="testMetadataRemovalPreservesGIFFramesAndTiming" time="1.688112125">
+</testcase>
+<testcase classname="NashiCoreTests.ImageParityTests" name="testMetadataRejectsStructuralAndUnappliedEditsWithoutPublishing" time="2.852557">
+</testcase>
+<testcase classname="NashiCoreTests.ImageParityTests" name="testRemovingOrientationMetadataPreservesDisplayedDimensions" time="2.679971333">
+</testcase>
+<testcase classname="NashiCoreTests.ImageParityTests" name="testRichAnnotationKindsAndImportedImageRender" time="1.0091565">
+</testcase>
+<testcase classname="NashiCoreTests.ImageParityTests" name="testSolidBlurAndPixelateRedactionsAffectOnlySelectedRegion" time="0.746784917">
+</testcase>
+<testcase classname="NashiCoreTests.ImageParityTests" name="testMetadataUpdatesRemovalsAndOriginalPreservation" time="6.975954041">
+</testcase>
+<testcase classname="NashiCoreTests.ImageRedactionBoundsRegressionTests" name="testEveryStyleRejectsInvalidAreasInsteadOfSilentlyClippingOrSkipping" time="0.082804708">
+</testcase>
+<testcase classname="NashiCoreTests.ImageRedactionBoundsRegressionTests" name="testFractionalRegionsAtTheBoundaryRemainValidForAllStyles" time="0.408438167">
+</testcase>
+<testcase classname="NashiCoreTests.ImageRedactionBoundsRegressionTests" name="testMixedSizeRedactionBatchRollsBackAndIdentifiesTheSmallerImage" time="0.415483625">
+</testcase>
+<testcase classname="NashiCoreTests.ImageRedactionBoundsRegressionTests" name="testNoManualRegionsAndNoDetectedFacesDoNotClaimSuccess" time="0.339351958">
+</testcase>
+<testcase classname="NashiCoreTests.InstagramPhotosTests" name="testEmptyAndUnknownSelectionLeaveNoPartialAlbum" time="0.086481916">
+</testcase>
+<testcase classname="NashiCoreTests.InstagramPhotosTests" name="testMissingDimensionsPreferFullOriginalOverSquareGridCrop" time="0.11196">
+</testcase>
+<testcase classname="NashiCoreTests.InstagramPhotosTests" name="testMissingOrUnsafePhotoDoesNotSilentlyReturnPartialGallery" time="0.087990916">
+</testcase>
+<testcase classname="NashiCoreTests.InstagramPhotosTests" name="testMixedCarouselKeepsPhotosInOrderWithoutVideoCovers" time="0.095522875">
+</testcase>
+<testcase classname="NashiCoreTests.InstagramPhotosTests" name="testOptInRealCarouselDownloadsEveryPhotoInOrder" time="0.070122209">
+</testcase>
+<testcase classname="NashiCoreTests.InstagramPhotosTests" name="testSinglePhotoDoesNotBecomeVideoOrThumbnailMode" time="0.077847708">
+</testcase>
+<testcase classname="NashiCoreTests.InstagramPhotosTests" name="testVideoOnlyPostCannotBeDownloadedAsPhotoCovers" time="0.082159958">
+</testcase>
+<testcase classname="NashiCoreTests.LocalProcessingTests" name="testMediaInputRejectsRemoteNestedResourcesBeforeFetching" time="0.561750541">
+</testcase>
+<testcase classname="NashiCoreTests.LocalProcessingTests" name="testXMPRejectsDocumentTypesAndExternalEntities" time="0.09699625">
+</testcase>
+<testcase classname="NashiCoreTests.ImageOrientationRegressionTests" name="testRemoveAllRetainsEveryNumericOrientationWithoutReencoding" time="42.091286875">
+</testcase>
+<testcase classname="NashiCoreTests.MediaAudioCompatibilityTests" name="testMonoVideoAudioUsesTheSameOpusLimit" time="1.692828291">
+</testcase>
+<testcase classname="NashiCoreTests.ImageParityTests" name="testWebPMetadataEditsPreserveEncodedImagePayload" time="8.2611635">
+</testcase>
+<testcase classname="NashiCoreTests.MediaAudioCompatibilityTests" name="testVorbisFallbackAlsoAppliesToTrimAndMonoChannelExports" time="4.521477583">
+</testcase>
+<testcase classname="NashiCoreTests.MediaConversionProfileTests" name="testBitrateSelectionIsIndependentOfVisualQuality" time="4.930868834">
+</testcase>
+<testcase classname="NashiCoreTests.MediaConversionProfileTests" name="testConfigurableSilenceThresholdOnlyTrimsQuietEnds" time="2.644157917">
+</testcase>
+<testcase classname="NashiCoreTests.MediaAudioCompatibilityTests" name="testMonoVorbisKeepsSampleRateAndContentWhenManagedBitrateIsUnsupported" time="17.856680834">
+</testcase>
+<testcase classname="NashiCoreTests.MediaConversionProfileTests" name="testFLACPresetsRemainLosslessAndAffectCompression" time="3.661881625">
+</testcase>
+<testcase classname="NashiCoreTests.ImageParityTests" name="testMetadataOnlyWritesPreserveImageDataAcrossContainersAndXMP" time="40.153781791">
+</testcase>
+<testcase classname="NashiCoreTests.MediaConversionProfileTests" name="testMatchSourcePreservesFloatAndExplicitIntegerOverride" time="4.335911542">
+</testcase>
+<testcase classname="NashiCoreTests.MediaConversionProfileTests" name="testMetadataProfileRetainsOrRemovesSourceTags" time="4.77763075">
+</testcase>
+<testcase classname="NashiCoreTests.MediaConversionProfileTests" name="testNativeBleepAmplitudeAndValidationLimits" time="4.855815583">
+</testcase>
+<testcase classname="NashiCoreTests.MediaConversionProfileTests" name="testVideoMaximumHeightAndGIFProfileDoNotUpscale" time="4.402760417">
+</testcase>
+<testcase classname="NashiCoreTests.MediaEngineTests" name="testAudioRedactionsMuteOrBleepOnlySelectedIntervals" time="4.31033">
+</testcase>
+<testcase classname="NashiCoreTests.MediaEngineTests" name="testCompressionMeetsActualByteAndPercentageTargets" time="3.036972875">
+</testcase>
+<testcase classname="NashiCoreTests.MediaEngineTests" name="testAudioVisualizerStylesContainVideoAndAudio" time="6.404947041">
+</testcase>
+<testcase classname="NashiCoreTests.MediaConversionProfileTests" name="testPCMDepthSelectionsAndMatchSourcePreserve24BitSamples" time="12.5585125">
+</testcase>
+<testcase classname="NashiCoreTests.MediaAudioCompatibilityTests" name="testMonoLossyProfilesPreserveSupportedRatesAndApplyCodecBitrateLimits" time="36.613905459">
+</testcase>
+<testcase classname="NashiCoreTests.MediaEngineTests" name="testJoinUsesFirstCanvasAndInsertsSilenceForSilentClips" time="5.385243166">
+</testcase>
+<testcase classname="NashiCoreTests.MediaEngineTests" name="testMetadataCanBeInspectedEditedAndRemovedWithoutTouchingSource" time="7.056911792">
+</testcase>
+<testcase classname="NashiCoreTests.MediaEngineTests" name="testMuteAndCropKeepTheExpectedTracks" time="2.723426916">
+</testcase>
+<testcase classname="NashiCoreTests.MediaEngineTests" name="testRotatedVideosUseTheDisplayedCanvasForEditing" time="2.171299709">
+</testcase>
+<testcase classname="NashiCoreTests.MediaEngineTests" name="testEveryAudioFormatDecodesAndRoundTrips" time="16.368618709">
+</testcase>
+<testcase classname="NashiCoreTests.MediaEngineTests" name="testNormalizeReachesLoudnessAndChannelsApplyGain" time="8.08583575">
+</testcase>
+<testcase classname="NashiCoreTests.MediaEngineTests" name="testEveryVideoFormatAndGIFAndAudioExtraction" time="16.160879084">
+</testcase>
+<testcase classname="NashiCoreTests.MediaEngineTests" name="testSnapshotsAreFullResolutionAndSplitAtCustomAndEqualPoints" time="7.946534708">
+</testcase>
+<testcase classname="NashiCoreTests.MediaEngineTests" name="testTrimVideoAudioAndSilentEndTrimming" time="5.919968">
+</testcase>
+<testcase classname="NashiCoreTests.MediaEngineTests" name="testValidationCancellationAndOutputDirectoryPreserveSources" time="5.919600417">
+</testcase>
+<testcase classname="NashiCoreTests.MediaMetadataPrivacyAuditTests" name="testRemoveAllDropsMP3ArtworkAndPreservesEncodedAudio" time="2.819733708">
+</testcase>
+<testcase classname="NashiCoreTests.MediaMetadataPrivacyAuditTests" name="testEditingOneTagRetainsArtworkWhenRemoveAllWasNotRequested" time="2.821214084">
+</testcase>
+<testcase classname="NashiCoreTests.MediaEngineTests" name="testSpeedPreservesPitchAndSupportsSilentVideo" time="9.74463575">
+</testcase>
+<testcase classname="NashiCoreTests.MediaEngineTests" name="testVideoRedactionStylesAndTemporalBounds" time="7.572842542">
+</testcase>
+<testcase classname="NashiCoreTests.MediaPreviewEngineTests" name="testBleepPreviewIsPlayableChangesOnlyTheRangeAndOwnsAllWorkingFiles" time="2.348683292">
+</testcase>
+<testcase classname="NashiCoreTests.MediaPreviewEngineTests" name="testNativeMediaUsesTheOriginalWithoutAWorkingCopy" time="0.871599458">
+</testcase>
+<testcase classname="NashiCoreTests.MediaMetadataPrivacyAuditTests" name="testRemoveAllRetainsRealVideoEncodedPayloadAndDisplayOrientation" time="3.134716042">
+</testcase>
+<testcase classname="NashiCoreTests.MediaPreviewEngineTests" name="testChannelWaveformsMeasureTheSelectedChannel" time="2.97709175">
+</testcase>
+<testcase classname="NashiCoreTests.MediaPreviewEngineTests" name="testProxyPreservesRotatedDisplayGeometryAndDuration" time="1.84905825">
+</testcase>
+<testcase classname="NashiCoreTests.MediaPreviewEngineTests" name="testValidationAndCancellationDoNotModifyTheSource" time="0.822327041">
+</testcase>
+<testcase classname="NashiCoreTests.MediaPreviewEngineTests" name="testWaveformKeepsOppositePhaseChannelsAndCoarseLongFileBins" time="2.802698625">
+</testcase>
+<testcase classname="NashiCoreTests.MediaPreviewEngineTests" name="testVisualizationPreviewIsBoundedPlayableAndOwnsItsTemporaryFiles" time="4.520644666">
+</testcase>
+<testcase classname="NashiCoreTests.MediaPreviewEngineTests" name="testWaveformRetainsSilenceAndDifferentPeakLevels" time="1.11621425">
+</testcase>
+<testcase classname="NashiCoreTests.MediaPreviewEngineTests" name="testUnsupportedAudioContainersProducePlayableAudioPreviews" time="6.043407917">
+</testcase>
+<testcase classname="NashiCoreTests.MediaPreviewEngineTests" name="testUnsupportedVideoContainersProduceAVFoundationPlayableProxies" time="6.542143458">
+</testcase>
+<testcase classname="NashiCoreTests.MediaSplitEditingTests" name="testDiscardedSegmentsExportSeparatelyInTheirOriginalOrder" time="2.949678167">
+</testcase>
+<testcase classname="NashiCoreTests.MediaSplitEditingTests" name="testExportOneVideoJoinsOnlyRetainedContentAndAudio" time="3.089013584">
+</testcase>
+<testcase classname="NashiCoreTests.MediaSplitEditingTests" name="testExportOneVideoSupportsSilentInputsAndOneRetainedSegment" time="4.193408958">
+</testcase>
+<testcase classname="NashiCoreTests.MediaSplitEditingTests" name="testFailedBatchRemovesJoinedOutputsAndKeepsTheChosenDirectory" time="1.697430666">
+</testcase>
+<testcase classname="NashiCoreTests.MediaSplitEditingTests" name="testInvalidOrEmptySelectionFailsBeforeCreatingAnExportFolder" time="2.0516105">
+</testcase>
+<testcase classname="NashiCoreTests.OperationProgressTests" name="testChunkedMicrosecondProgressRejectsMalformedAndRegressingValues" time="0.073510083">
+</testcase>
+<testcase classname="NashiCoreTests.OperationProgressTests" name="testDownloadProcessStreamsShortProgressAndStageLines" time="1.389042917">
+</testcase>
+<testcase classname="NashiCoreTests.MediaSplitEditingTests" name="testRetainedContentPreviewOwnsItsWorkingFiles" time="2.5603535">
+</testcase>
+<testcase classname="NashiCoreTests.OperationProgressTests" name="testProcessOutputArrivesBeforeExitWithoutAFullPipeBuffer" time="0.899887125">
+</testcase>
+<testcase classname="NashiCoreTests.OperationProgressTests" name="testUnknownDurationAndNestedScopesNeverInventPercentage" time="0.08154575">
+</testcase>
+<testcase classname="NashiCoreTests.MediaSplitEditingTests" name="testSplitIntervalFilteringAndRestoreProduceTheExpectedSegments" time="3.628033375">
+</testcase>
+<testcase classname="NashiCoreTests.OperationProgressTests" name="testRealMediaProgressAndCancellationKeepTransactionalOutputsSafe" time="2.310356375">
+</testcase>
+<testcase classname="NashiCoreTests.PDFEditableReadabilityTests" name="testEditableOutputKeepsDarkReadableSourceColors" time="2.515714709">
+</testcase>
+<testcase classname="NashiCoreTests.PDFEngineTests" name="testDefaultCompressionDoesNotEnlargeSmallImagesOrRasterizeSmallVectorPDFs" time="0.18992225">
+</testcase>
+<testcase classname="NashiCoreTests.PDFEngineTests" name="testImageCompressionReductionMeansReducedBytesAcrossCategories" time="0.516440667">
+</testcase>
+<testcase classname="NashiCoreTests.PDFEngineTests" name="testInvalidPageRangesTargetsAndCancellationFailClearly" time="0.254024916">
+</testcase>
+<testcase classname="NashiCoreTests.PDFEngineTests" name="testMergeSplitAndOrganizeKeepEditableTextAndOriginals" time="0.798153125">
+</testcase>
+<testcase classname="NashiCoreTests.PDFEngineTests" name="testPDFMetadataEditRemoveAndPercentCompressionHaveRealEffects" time="1.080032583">
+</testcase>
+<testcase classname="NashiCoreTests.PDFEngineTests" name="testRasterExportIncludesEveryPageAt300DPI" time="0.304766084">
+</testcase>
+<testcase classname="NashiCoreTests.PDFEngineTests" name="testUniformWidthScalesPagesProportionallyWithoutRasterizingText" time="0.268760667">
+</testcase>
+<testcase classname="NashiCoreTests.PDFEditableReadabilityTests" name="testSmallColoredPDFExportsVisibleEditableDOCXWithoutExtraPages" time="5.366484959">
+</testcase>
+<testcase classname="NashiCoreTests.PDFPageEditorStateTests" name="testInvalidSelectionAndDocumentReplacementCannotMutateOtherPages" time="0.21111525">
+</testcase>
+<testcase classname="NashiCoreTests.PDFPageEditorStateTests" name="testReorderingKeepsSourceAndRotationAttachedToEachPage" time="0.2287315">
+</testcase>
+<testcase classname="NashiCoreTests.PDFPageEditorStateTests" name="testResetAfterDuplicatingClearsOutOfRangeSelection" time="0.208356084">
+</testcase>
+<testcase classname="NashiCoreTests.MediaSplitEditingTests" name="testExportOneVideoWorksAcrossTheRemainingSupportedContainers" time="13.856063125">
+</testcase>
+<testcase classname="NashiCoreTests.PDFPreservationRegressionTests" name="testCrossPageReplyRefusesRatherThanHidingDiscardedPageContent" time="0.434994875">
+</testcase>
+<testcase classname="NashiCoreTests.PDFPreservationRegressionTests" name="testCustomPageLabelsRefuseMergeFromEitherSourceButIdentityKeepsLabels" time="0.781934541">
+</testcase>
+<testcase classname="NashiCoreTests.PDFPreservationRegressionTests" name="testDuplicatedPageFieldsAreIndependentAndAttachmentIsNotDuplicated" time="0.756941458">
+</testcase>
+<testcase classname="NashiCoreTests.PDFPreservationRegressionTests" name="testInvalidSelectionAndPreCancelledTransformDoNotTouchSources" time="0.278838167">
+</testcase>
+<testcase classname="NashiCoreTests.PDFPresentationAuditTests" name="testMixedPageSizesFitAndCenterInsideTheFirstPagesSharedCanvas" time="3.550722584">
+</testcase>
+<testcase classname="NashiCoreTests.PDFPreservationRegressionTests" name="testLaterUnsupportedPDFRollsBackEarlierSuccessfulExport" time="0.696563958">
+</testcase>
+<testcase classname="NashiCoreTests.PDFPreservationRegressionTests" name="testMergeSameNamedFieldsAndAttachmentsPreservesDistinctValuesAndPayloads" time="0.708492">
+</testcase>
+<testcase classname="NashiCoreTests.PDFPreservationRegressionTests" name="testOrdinaryPasswordPDFKeepsOrganizeSplitAndMergeWithSuppliedPassword" time="0.607332">
+</testcase>
+<testcase classname="NashiCoreTests.PDFPreservationRegressionTests" name="testOrganizePreservesRegisteredFieldsAttachmentsPageOrderAndRotations" time="0.639468875">
+</testcase>
+<testcase classname="NashiCoreTests.PDFPreservationRegressionTests" name="testRichPasswordPDFRefusesPageEditingWithoutLosingFieldsOrAttachments" time="0.466860875">
+</testcase>
+<testcase classname="NashiCoreTests.PDFPreservationRegressionTests" name="testSplitDropsDiscardedFieldAndEveryReachableRemovedPageObject" time="0.605832041">
+</testcase>
+<testcase classname="NashiCoreTests.PDFPreservationRegressionTests" name="testUniformWidthRefusesRichDataAndStillScalesPlainPages" time="0.871322042">
+</testcase>
+<testcase classname="NashiCoreTests.PDFSafetyAuditTests" name="testEditableFormMetadataRemovalRefusesWithoutPublishingOrChangingFields" time="0.271902666">
+</testcase>
+<testcase classname="NashiCoreTests.PDFSafetyAuditTests" name="testRasterExportUsesDisplayedRotationAndFillsTheWholePage" time="0.561641583">
+</testcase>
+<testcase classname="NashiCoreTests.PDFSafetyAuditTests" name="testLargeSearchablePDFCompressionKeepsTextAndNavigationAndRejectsDestructiveTarget" time="0.675965958">
+</testcase>
+<testcase classname="NashiCoreTests.PDFSafetyAuditTests" name="testRemoveAllDropsCatalogPageAndAnnotationIdentityButKeepsTextAndNavigation" time="0.571343292">
+</testcase>
+<testcase classname="NashiCoreTests.PDFSafetyAuditTests" name="testRichCatalogCleanupRefusesWithoutLosingAttachmentsLayersOrAccessibility" time="0.563964292">
+</testcase>
+<testcase classname="NashiCoreTests.PagesDuplicateIdentifierTests" name="testDuplicateIdenticalRelationshipsAreAlsoRejected" time="0.167554958">
+</testcase>
+<testcase classname="NashiCoreTests.PagesDuplicateIdentifierTests" name="testDuplicateRelationshipIdentifiersReturnErrorWithoutPublishing" time="0.1599325">
+</testcase>
+<testcase classname="NashiCoreTests.PagesDuplicateIdentifierTests" name="testDuplicateStyleIdentifiersReturnErrorWithoutPublishing" time="0.168294542">
+</testcase>
+<testcase classname="NashiCoreTests.PagesDuplicateIdentifierTests" name="testTotalTableColumnsAreBoundedBeforeExpandingCells" time="0.17534275">
+</testcase>
+<testcase classname="NashiCoreTests.PagesDuplicateIdentifierTests" name="testInvalidAndOversizedTableSpansReturnErrorsWithoutPublishing" time="0.3948545">
+</testcase>
+<testcase classname="NashiCoreTests.PDFEditableReadabilityTests" name="testSmallColoredPDFPagesRouteAlsoKeepsReadableEditableContent" time="12.728469334">
+</testcase>
+<testcase classname="NashiUpdatesTests.PublicUpdateChannelTests" name="testNewUsersAndLegacyUsersDoNotTouchCredentials" time="0.140327584">
+</testcase>
+<testcase classname="NashiUpdatesTests.PublicUpdateChannelTests" name="testOfficialChannelRequiresExactBundledFeed" time="0.105889667">
+</testcase>
+<testcase classname="NashiUpdatesTests.PublicUpdateChannelTests" name="testUnrelatedCustomChannelIsPreserved" time="0.247239709">
+</testcase>
+<testcase classname="NashiCoreTests.PagesDuplicateIdentifierTests" name="testUniqueIdentifiersStillProduceReadablePages" time="1.646592042">
+</testcase>
+<testcase classname="NashiCoreTests.QRCodeEngineTests" name="testPerFileErrorsEmptyResultsAndCancellationAreExplicit" time="0.974310375">
+</testcase>
+<testcase classname="NashiCoreTests.SolidRedactionCoverageTests" name="testSolidImagePreviewAndExportAlwaysUseOpaqueSelectedRGB" time="0.135919916">
+</testcase>
+<testcase classname="NashiCoreTests.PagesDuplicateIdentifierTests" name="testValidMergedCellsRetainTextAndSpan" time="2.914029625">
+</testcase>
+<testcase classname="NashiCoreTests.QRCodeEngineTests" name="testImagePDFMultiPageAndExportReadActualPayloads" time="2.255296333">
+</testcase>
+<testcase classname="NashiCoreTests.PDFPresentationAuditTests" name="testLandscapePortraitAndRotatedPDFsKeepTheirSlideAspectAndImageOrientation" time="11.251423125">
+</testcase>
+<testcase classname="NashiCoreTests.ToolSetupTests" name="testEmptyExecutableCannotReportReady" time="0.100983">
+</testcase>
+<testcase classname="NashiCoreTests.ToolSetupTests" name="testFailedPublishRollsBackPartialInstallation" time="0.164888042">
+</testcase>
+<testcase classname="NashiCoreTests.ToolSetupTests" name="testIncompleteDownloadDoesNotReplaceExistingTools" time="0.1241055">
+</testcase>
+<testcase classname="NashiCoreTests.ToolSetupTests" name="testReadinessRequiresEveryMediaExecutableAndOffice" time="0.10709">
+</testcase>
+<testcase classname="NashiCoreTests.ToolSetupTests" name="testRepairPublishesCompleteDirectoryAndKeepsHealthyInstall" time="0.111573708">
+</testcase>
+<testcase classname="NashiUpdatesTests.UpdateConfigurationTests" name="testBothFeedAndArchiveVerificationAreRequired" time="0.0715725">
+</testcase>
+<testcase classname="NashiCoreTests.SolidRedactionCoverageTests" name="testSolidVideoCoversEveryPixelTouchedByFractionalSelection" time="1.709646542">
+</testcase>
+<testcase classname="NashiUpdatesTests.UpdateConfigurationTests" name="testBundledKeyCanEnableAUserSelectedGitHubRepoWithoutAnotherBootstrap" time="0.090179042">
+</testcase>
+<testcase classname="NashiUpdatesTests.UpdateConfigurationTests" name="testDevelopmentHTTPExceptionIsLimitedToLoopback" time="0.091562958">
+</testcase>
+<testcase classname="NashiCoreTests.SolidRedactionCoverageTests" name="testSolidVideoKeepsSelectedRGBInsteadOfAlwaysUsingBlack" time="1.302797167">
+</testcase>
+<testcase classname="NashiUpdatesTests.UpdateConfigurationTests" name="testHTTPSAndPinnedEd25519Key" time="0.149184208">
+</testcase>
+<testcase classname="NashiUpdatesTests.UpdateConfigurationTests" name="testRejectsMalformedAndIncorrectLengthSigningKeys" time="0.1329105">
+</testcase>
+<testcase classname="NashiUpdatesTests.UpdateConfigurationTests" name="testRejectsUntrustedFeedAddresses" time="0.107038458">
+</testcase>
+<testcase classname="NashiUpdatesTests.UpdateConfigurationTests" name="testRepositoryCannotSupplyOrReplaceTheBundledTrustKey" time="0.1047715">
+</testcase>
+<testcase classname="NashiUpdatesTests.UpdateConfigurationTests" name="testUnconfiguredBuildCannotStartNetworkUpdates" time="0.102252708">
+</testcase>
+<testcase classname="NashiUpdatesTests.UpdateConnectionTests" name="testPrivateConnectionRestoresWithoutReadingTheTokenAndCanReuseIt" time="0.127194083">
+</testcase>
+<testcase classname="NashiUpdatesTests.UpdateConnectionTests" name="testRejectedTokenDoesNotReplaceWorkingConnection" time="0.110020084">
+</testcase>
+<testcase classname="NashiUpdatesTests.UpdateConnectionTests" name="testSwitchingToPublicDoesNotReadOrForwardPrivateToken" time="0.121100541">
+</testcase>
+<testcase classname="NashiUpdatesTests.UpdateCredentialBrokerTests" name="testBrokerConfigurationRequiresExactServiceCertificateAndFrozenHashes" time="0.110826292">
+</testcase>
+<testcase classname="NashiUpdatesTests.UpdateCredentialBrokerTests" name="testBrokerHandshakeAndPinnedRequirementPrecedeEveryCredentialMessage" time="0.146438917">
+</testcase>
+<testcase classname="NashiUpdatesTests.UpdateCredentialBrokerTests" name="testBrokerRejectsUnverifiedBundleAndFailedHandshakeBeforeSendingToken" time="0.135173166">
+</testcase>
+<testcase classname="NashiUpdatesTests.UpdateCredentialBrokerTests" name="testFrozenBundleHashIncludesModesAndResourcesAndRejectsSymlinks" time="0.09682">
+</testcase>
+<testcase classname="NashiUpdatesTests.UpdateCredentialBrokerTests" name="testNashiStoreUsesTheExistingAccountForReadWriteAndRemove" time="0.096503875">
+</testcase>
+<testcase classname="NashiUpdatesTests.UpdateCredentialStoreTests" name="testCredentialErrorsNeverIncludeTheToken" time="0.089254666">
+</testcase>
+<testcase classname="NashiUpdatesTests.UpdateCredentialStoreTests" name="testCredentialWaitLeavesMainActorResponsive" time="0.104661333">
+</testcase>
+<testcase classname="NashiUpdatesTests.UpdateCredentialBrokerTests" name="testBrokerTimeoutDenialAndMainThreadCallsFailWithoutLeakingToken" time="0.356515">
+</testcase>
+<testcase classname="NashiUpdatesTests.UpdateCredentialStoreTests" name="testTokenValidationTrimsPasteButRejectsHeaderInjection" time="0.090747708">
+</testcase>
+<testcase classname="NashiUpdatesTests.UpdateCredentialStoreTests" name="testKeychainRoundTripReplacementAndRepositoryIsolation" time="0.171561167">
+</testcase>
+<testcase classname="NashiUpdatesTests.UpdateRelaunchTests" name="testBusyConversionDefersRestartAndResumesOnlyOnceWhenIdle" time="0.129505208">
+</testcase>
+<testcase classname="NashiUpdatesTests.UpdateRelaunchTests" name="testEndedUpdateSessionCannotRestartAfterAConversionFinishes" time="0.103623917">
+</testcase>
+<testcase classname="NashiUpdatesTests.UpdateRelaunchTests" name="testIdleAppLetsSparkleContinueWithoutCallingItsHandlerTwice" time="0.089022083">
+</testcase>
+<testcase classname="NashiCoreTests.WebDownloadTests" name="testErrorsDoNotExposeSourceSecrets" time="0.079417792">
+</testcase>
+<testcase classname="NashiCoreTests.WebDownloadTests" name="testExtractorArgumentsIgnoreUserConfigurationAndKeepURLAsData" time="0.094505208">
+</testcase>
+<testcase classname="NashiCoreTests.WebDownloadTests" name="testGenericHTML5VideoWithoutCodecStillOffersVideo" time="0.084169834">
+</testcase>
+<testcase classname="NashiCoreTests.WebDownloadTests" name="testLiveAndProtectedMediaRejected" time="0.089773125">
+</testcase>
+<testcase classname="NashiCoreTests.WebDownloadTests" name="testManifestsAndHTMLAreNotDirectMedia" time="0.100578167">
+</testcase>
+<testcase classname="NashiCoreTests.WebDownloadTests" name="testMetadataModesQualityAndDuration" time="0.098483458">
+</testcase>
+<testcase classname="NashiCoreTests.WebDownloadTests" name="testNamesCannotEscapeDestinationOrMasqueradeAsApplications" time="0.112489291">
+</testcase>
+<testcase classname="NashiCoreTests.WebDownloadTests" name="testOnlySinglePublicWebAddressSyntax" time="0.097504083">
+</testcase>
+<testcase classname="NashiCoreTests.WebMediaDragPayloadTests" name="testDirectVideoAndPosterStaySeparate" time="0.086056417">
+</testcase>
+<testcase classname="NashiCoreTests.WebMediaDragPayloadTests" name="testHTMLCannotFetchSubresourcesOrPromoteNonWebSchemes" time="0.099868667">
+</testcase>
+<testcase classname="NashiCoreTests.WebMediaDragPayloadTests" name="testImageOnlyYouTubeThumbnailRecoversVideoIncludingAnimatedPreviews" time="0.098705292">
+</testcase>
+<testcase classname="NashiCoreTests.WebMediaDragPayloadTests" name="testInstagramGridReelWinsOverCoverAndDropsTrackingParameters" time="0.091374041">
+</testcase>
+<testcase classname="NashiCoreTests.WebMediaDragPayloadTests" name="testInstagramPhotoAndCarouselCardsPreserveThePostWithoutVideoChoices" time="0.084618792">
+</testcase>
+<testcase classname="NashiCoreTests.WebMediaDragPayloadTests" name="testLookalikeHostsAndMalformedIDsCannotCreateAVideoIdentity" time="0.078807333">
+</testcase>
+<testcase classname="NashiCoreTests.WebDownloadTests" name="testProcessTimeoutAndCancellation" time="0.349480416">
+</testcase>
+<testcase classname="NashiCoreTests.WebMediaDragPayloadTests" name="testMultipleCardsAreRejectedInsteadOfChoosingAnUnrelatedVideo" time="0.085977666">
+</testcase>
+<testcase classname="NashiCoreTests.WebMediaDragPayloadTests" name="testOrdinaryLinkedImageStillSavesTheImageRatherThanItsPage" time="0.098882209">
+</testcase>
+<testcase classname="NashiCoreTests.WebMediaDragPayloadTests" name="testRelativeInstagramAnchorUsesOnlyTheProvidedSourceAsBase" time="0.088619083">
+</testcase>
+<testcase classname="NashiCoreTests.WebMediaDragPayloadTests" name="testYouTubeHomeLinkedCardKeepsVideoAndThumbnailSeparate" time="0.115309208">
+</testcase>
+<testcase classname="NashiCoreTests.WebMediaDragPayloadTests" name="testYouTubeShareShortsAndWatchURLsHaveAThumbnailChoice" time="0.096940625">
+</testcase>
+<testcase classname="NashiCoreTests.WindowPlacementTests" name="testContentDragsAndFreshFilePayloadNeverActivateWindowWheel" time="0.096421125">
+</testcase>
+<testcase classname="NashiCoreTests.WindowPlacementTests" name="testEscapeCancellationLastsUntilTheNextDrag" time="0.07694675">
+</testcase>
+<testcase classname="NashiCoreTests.WindowPlacementTests" name="testMaximizeFillsTheExactUsableAreaAcrossDisplaysAndMinimumWidths" time="0.065136333">
+</testcase>
+<testcase classname="NashiCoreTests.WindowPlacementTests" name="testMinimumWindowWidthKeepsSelectedEdgeAndFitsTheDisplay" time="0.078185458">
+</testcase>
+<testcase classname="NashiCoreTests.WindowPlacementTests" name="testRequestedPlacementsPartitionOddAndRetinaScreens" time="0.079850875">
+</testcase>
+<testcase classname="NashiCoreTests.YouTubeThumbnailTests" name="testAlreadyLargerSourceIsNeverDowngraded" time="0.10373725">
+</testcase>
+<testcase classname="NashiCoreTests.YouTubeThumbnailTests" name="testCancellationCannotReturnAPreviouslyFoundImage" time="0.115660708">
+</testcase>
+<testcase classname="NashiCoreTests.YouTubeThumbnailTests" name="testFeedPreviewUpgradesToRealMaxResolutionCover" time="0.111719875">
+</testcase>
+<testcase classname="NashiCoreTests.YouTubeThumbnailTests" name="testOptInRealPreviewLinkDownloadsTheFullSizeImage" time="0.112070709">
+</testcase>
+<testcase classname="NashiCoreTests.YouTubeThumbnailTests" name="testOtherImagesAndLookalikeHostsAreNotRewritten" time="0.108325209">
+</testcase>
+<testcase classname="NashiCoreTests.YouTubeThumbnailTests" name="testSuccessfulPlaceholderResponseFallsBackToActualStandardImage" time="0.093910917">
+</testcase>
+<testcase classname="NashiCoreTests.YouTubeThumbnailTests" name="testUnavailableAndNonImageVariantsKeepTheValidOriginal" time="0.0886715">
+</testcase>
+<testcase classname="NashiCoreTests.SolidRedactionCoverageTests" name="testSolidVideoIgnoresColorOpacityAndKeepsTemporalBounds" time="5.40147675">
+</testcase>
+</testsuite>
+</testsuites>

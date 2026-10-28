@@ -1,0 +1,53 @@
+Building for debugging...
+[0/1] Write swift-version--1AB21518FC5DEDBE.txt
+[2/10] Compiling NashiUpdates UpdateBrandMigration.swift
+[3/10] Compiling NashiUpdates GitHubUpdateTransport.swift
+[4/10] Emitting module NashiUpdates
+[5/10] Compiling NashiUpdates PublicUpdateChannel.swift
+[6/10] Compiling NashiUpdates AppUpdater.swift
+[7/10] Compiling NashiUpdates UpdateConfiguration.swift
+[8/10] Compiling NashiUpdates UpdateCredentialBroker.swift
+[9/10] Compiling NashiUpdates UpdateCredentialStore.swift
+<checkout>/Sources/NashiUpdates/UpdateCredentialStore.swift:93:19: warning: 'SecKeychainGetUserInteractionAllowed' was deprecated in macOS 10.10: SecKeychain is deprecated [#DeprecatedDeclaration]
+ 91 |         // does not cover these items (see Security.framework's SecItem.h).
+ 92 |         var interactionWasAllowed: DarwinBoolean = false
+ 93 |         try check(SecKeychainGetUserInteractionAllowed(&interactionWasAllowed))
+    |                   `- warning: 'SecKeychainGetUserInteractionAllowed' was deprecated in macOS 10.10: SecKeychain is deprecated [#DeprecatedDeclaration]
+ 94 |         try check(SecKeychainSetUserInteractionAllowed(allowingInteraction))
+ 95 |         defer { SecKeychainSetUserInteractionAllowed(interactionWasAllowed.boolValue) }
+
+<checkout>/Sources/NashiUpdates/UpdateCredentialStore.swift:94:19: warning: 'SecKeychainSetUserInteractionAllowed' was deprecated in macOS 10.10: SecKeychain is deprecated [#DeprecatedDeclaration]
+ 92 |         var interactionWasAllowed: DarwinBoolean = false
+ 93 |         try check(SecKeychainGetUserInteractionAllowed(&interactionWasAllowed))
+ 94 |         try check(SecKeychainSetUserInteractionAllowed(allowingInteraction))
+    |                   `- warning: 'SecKeychainSetUserInteractionAllowed' was deprecated in macOS 10.10: SecKeychain is deprecated [#DeprecatedDeclaration]
+ 95 |         defer { SecKeychainSetUserInteractionAllowed(interactionWasAllowed.boolValue) }
+ 96 |         let context = LAContext()
+
+<checkout>/Sources/NashiUpdates/UpdateCredentialStore.swift:95:17: warning: 'SecKeychainSetUserInteractionAllowed' was deprecated in macOS 10.10: SecKeychain is deprecated [#DeprecatedDeclaration]
+ 93 |         try check(SecKeychainGetUserInteractionAllowed(&interactionWasAllowed))
+ 94 |         try check(SecKeychainSetUserInteractionAllowed(allowingInteraction))
+ 95 |         defer { SecKeychainSetUserInteractionAllowed(interactionWasAllowed.boolValue) }
+    |                 `- warning: 'SecKeychainSetUserInteractionAllowed' was deprecated in macOS 10.10: SecKeychain is deprecated [#DeprecatedDeclaration]
+ 96 |         let context = LAContext()
+ 97 |         context.interactionNotAllowed = !allowingInteraction
+
+[#DeprecatedDeclaration]: <https://docs.swift.org/compiler/documentation/diagnostics/deprecated-declaration>
+[10/10] Compiling NashiUpdates UpdateCredentialBrokerProtocol.swift
+Build of target: 'NashiUpdates' complete! (0.96s)
+PASS valid pinned signing configuration retained
+PASS missing signing key refused
+PASS required SURequireSignedFeed
+PASS required SUVerifyUpdateBeforeExtraction
+PASS unsafe update feed rejected
+PASS unsafe update feed rejected
+PASS unsafe update feed rejected
+PASS unsafe update feed rejected
+PASS malformed signing key rejected
+PASS malformed signing key rejected
+PASS malformed signing key rejected
+PASS default fork does not restore upstream identity
+PASS default fork update and connection controls disabled
+PASS local fork refuses connection before credential access
+PASS existing preference not deleted
+15 update checks passed (policy/configuration; no signed release installed)

@@ -1,0 +1,14 @@
+PASS packaged independent identity
+PASS packaged updater has no trust key or feed
+PASS local ad-hoc bundle integrity
+PASS MIT license bundled verbatim
+PASS catalog retains all tools
+PASS native image conversion retains dimensions
+PASS native PDF export readable
+PASS conversion preserves original
+PASS packaged archive extraction
+PASS packaged hostile archive rejected with clean rollback
+PASS real FFmpeg export and ffprobe
+PASS real office PDF export
+PASS independent runtime locations
+13 packaged app checks passed (UI not launched)

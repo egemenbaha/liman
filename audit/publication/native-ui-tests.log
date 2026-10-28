@@ -1,0 +1,1 @@
+PASS: 40 native UI captures; 26 audit guardrails; 30 range checks; 11 artwork checks; parser/output safety

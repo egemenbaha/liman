@@ -1,6 +1,6 @@
-# Liman yerel güvenlik fork'u
+# Liman güvenlik geliştirme fork'u
 
-Liman, [Nashi](https://github.com/orkunisitmak/nashi-app) kaynaklarından başlayan bağımsız bir yerel geliştirme fork'udur. Orkun Işıtmak, Nashi, Tangerine veya LEAP STUDIO tarafından yayımlanmaz ve desteklenmez. “Liman” bu çalışma için kullanılan geçici addır.
+Liman, [Nashi](https://github.com/orkunisitmak/nashi-app) kaynaklarından başlayan bağımsız bir geliştirme fork'udur. Orkun Işıtmak, Nashi, Tangerine veya LEAP STUDIO tarafından yayımlanmaz ve desteklenmez. “Liman” bu çalışma için kullanılan geçici addır.
 
 **Durum: ilk macOS güvenlik yamaları uygulanmış ve yerel testlerden geçmiştir; üretime hazır güvenli sürüm değildir.** Özellikle yt-dlp'nin alt bağlantıları ve Windows tarafı henüz aynı korumaya sahip değildir. Ayrıntılar ve kalan işler: [güvenlik denetimi](SECURITY-AUDIT.tr.md).
 
@@ -35,12 +35,14 @@ NASHI_SIGNING_MODE=ad-hoc scripts/build-app.sh debug
 python3 scripts/test-liman-app.py
 ```
 
-Çıktı: `build/Liman.app`. Paket yerel ad-hoc imzalıdır; Apple noter onayı ve yayıncı kimliği yoktur. İlk paket yerel olarak oluşturulup doğrulandı; bilgisayara kurulumun güncel sonucu VERIFICATION.tr.md içindedir. Medya/ofis araçları paket içinde değildir. İlgili işlevler için uygulamanın araç kurulum ekranı veya uygun yerel araçlar gerekir.
+Çıktı: `build/Liman.app`. Paket yerel ad-hoc imzalıdır; Apple noter onayı ve yayıncı kimliği yoktur. İlk paket yerel olarak oluşturulup doğrulandı; bilgisayara kurulumun güncel sonucu VERIFICATION.tr.md içindedir. Medya/ofis araçları paket içinde değildir. İlgili işlevler için uygulamanın araç kurulum ekranı, `python3 scripts/setup-liman-tools.py` veya uygun yerel araçlar gerekir. Kurulum betiği sabit sürüm ve SHA-256 doğrulaması kullanır.
 
 Tam Xcode bulunan ortamda mevcut regresyon paketi:
 
 ```sh
-swift test --filter 'ArchiveLinkBoundaryTests|ArchiveResourceLimitsTests|NashiUpdatesTests'
+python3 scripts/setup-liman-tools.py
+swift test --parallel --num-workers 4 --xunit-output build/full-swift-tests.xml
+python3 scripts/test-liman-app.py --app /Applications/Liman.app --with-tools
 ```
 
 Bağımlılık danışma kaydı üretmek için `python3 scripts/audit-liman-dependencies.py` kullanılabilir. Bu komut yalnızca sabit paket adlarını/sürümlerini ve Sparkle commit'ini OSV'ye sorgular; paket kurmaz.

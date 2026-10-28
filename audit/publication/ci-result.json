@@ -1,0 +1,27 @@
+{
+  "run": "https://github.com/egemenbaha/liman/actions/runs/40674286227",
+  "testedRevision": "1a3b28c20c6e11e675675cd6392aa8385c3b2b74",
+  "status": "completed",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "name": "macos",
+      "conclusion": "success"
+    },
+    {
+      "name": "windows",
+      "conclusion": "success"
+    }
+  ],
+  "swift": {
+    "discovered": 294,
+    "failures": 0,
+    "liveOptInsNotConfigured": 2,
+    "note": "Swift parallel xunit output does not preserve XCTest skip tags; do not count the two guarded live tests as passed."
+  },
+  "windows": {
+    "engineChecks": 1327,
+    "desktopChecks": 331,
+    "uiCaptures": 40
+  }
+}

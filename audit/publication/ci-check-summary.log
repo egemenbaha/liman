@@ -1,0 +1,9 @@
+macos	Fork security and update isolation	2026-10-28T10:50:14.4761990Z 86 security checks passed
+macos	Fork security and update isolation	2026-10-28T10:50:14.8347720Z Ran 4 tests in 0.072s
+macos	Fork security and update isolation	2026-10-28T10:50:18.2522720Z 15 update checks passed (policy/configuration; no signed release installed)
+macos	Package and verify native app	2026-10-28T10:51:33.3084010Z 13 packaged app checks passed (UI not launched)
+macos	Package and verify native app	2026-10-28T10:52:00.6223000Z PASS: 40 native UI captures; 26 audit guardrails; 30 range checks; 11 artwork checks; parser/output safety
+windows	Core regression and real media exports	2026-10-28T10:44:34.7572144Z {"passed":1274,"scope":"Cross-platform Windows engine safety foundation; no Windows GUI claimed"}
+windows	Core regression and real media exports	2026-10-28T10:44:45.4567798Z {"passed":1327,"scope":"Engine safety plus real FFmpeg conversion, trim, mute, speed, crop, split, join, normalize, snapshots and redaction; Windows UI not claimed"}
+windows	Native WPF regression suite	2026-10-28T10:49:10.0941430Z UI audit: 40/40 captures passed. D:\a\liman\liman\build\windows-smoke\ui-audit\manifest.json
+windows	Native WPF regression suite	2026-10-28T10:49:10.2797732Z {"passed":331,"scope":"Native Windows SendInput keyboard routing, real OS clipboard text/image/files, Library restart/search/missing files, theme renders, image/PDF/ZIP operations.","extendedParity":true}

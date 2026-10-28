@@ -1,0 +1,42 @@
+PASS Keyboard Enter opens a wheel without applying; arrows and Escape work
+PASS Real drag + Shift + hover + drop creates a PNG
+PASS All 45 sample inputs expose all 275 catalog conversion routes
+PASS Multiple PDFs use the batch tool wheel including Merge PDFs
+PASS Crop drag + Shift exports a square with real pixel dimensions
+PASS Annotation has exactly one active tool and Undo affects the export
+PASS Video playback shortcuts, In/Out drag and field synchronization
+PASS Tool compress opens, applies settings and records its result
+PASS Tool removeMetadata opens, applies settings and records its result
+PASS Tool editImage opens, applies settings and records its result
+PASS Tool annotateImage opens, applies settings and records its result
+PASS Tool frameImage opens, applies settings and records its result
+PASS Tool cropImage opens, applies settings and records its result
+PASS Tool normalizeAudio opens, applies settings and records its result
+PASS Tool muteVideo opens, applies settings and records its result
+PASS Tool trimVideo opens, applies settings and records its result
+PASS Tool splitPDF opens, applies settings and records its result
+PASS Tool organizePDF opens, applies settings and records its result
+PASS Tool extractArchive opens, applies settings and records its result
+PASS Tool createPDF opens, applies settings and records its result
+PASS Tool mergePDF opens, applies settings and records its result
+PASS Tool cropVideo opens, applies settings and records its result
+PASS Tool changeVideoSpeed opens, applies settings and records its result
+PASS Tool joinVideos opens, applies settings and records its result
+PASS Tool videoSnapshots opens, applies settings and records its result
+PASS Tool splitVideo opens, applies settings and records its result
+PASS Tool audioToVideo opens, applies settings and records its result
+PASS Tool trimAudio opens, applies settings and records its result
+PASS Tool audioChannels opens, applies settings and records its result
+PASS Tool createCollage opens, applies settings and records its result
+PASS Tool redactImage opens, applies settings and records its result
+PASS Tool redactVideo opens, applies settings and records its result
+PASS Tool redactAudio opens, applies settings and records its result
+PASS Tool readQRCode opens, applies settings and records its result
+PASS PDF output has valid page objects and merge keeps six pages
+PASS Real audio trim exports WAV with the selected duration
+PASS Input validation rejects an invalid PDF without creating a result
+PASS Instagram Reels omit thumbnails; photo posts offer a carousel
+PASS All six file actions open the right preview or shelf
+PASS English strings, layout and real image export
+PASS 390px touch viewport fits; tap selects, opens wheel and exports
+{"passed":41,"failed":0,"errors":0}
