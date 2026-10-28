@@ -30,12 +30,16 @@ public enum WebDownloadEngine {
               let host=url.host,!host.isEmpty,url.user==nil,url.password==nil else {
             throw NashiError.invalidInput("Paste one complete http:// or https:// media link.")
         }
+        _ = try PublicWebPolicy.validate(url)
         return url
     }
     public static func inspect(_ url:URL,token:CancellationToken = .init()) async throws -> WebMediaInfo {
         let url=try link(url.absoluteString);try token.check()
-        let session=URLSession(configuration:.ephemeral)
-        defer { session.invalidateAndCancel() }
+        let staging = try OutputFiles.temporaryDirectory()
+        defer { try? FileManager.default.removeItem(at: staging) }
+        // Preflight external extractors too, but their own subsequent requests
+        // still need an OS-enforced egress boundary (tracked in SECURITY-AUDIT).
+        _ = try await Task.detached { try PublicWebPolicy.pinnedAddress(for: url) }.value
         if WebMediaDragPayload.isInstagramPhotoPost(url) {
             let args=try baseArguments(photoPost:true)+["--ignore-no-formats-error","--skip-download","--dump-single-json","--no-progress","--",url.absoluteString]
             let data=try await Task.detached { try WebDownloadProcess.run(Dependencies.executable("yt-dlp"),args,token:token,timeout:100) }.value
@@ -43,17 +47,18 @@ public enum WebDownloadEngine {
             return try InstagramPhotos.parse(data,url:url)
         }
         if let cover=try await YouTubeThumbnail.resolve(url,token:token,fetch:{ candidate in
-            var request=URLRequest(url:candidate);request.timeoutInterval=12
-            let (data,response)=try await session.data(for:request)
-            guard let response=response as? HTTPURLResponse,(200...299).contains(response.statusCode),
+            let file = staging.appendingPathComponent("thumbnail")
+            let response = try await PublicWebTransfer.fetchAsync(candidate, to: file, maximumBytes: 20 * 1024 * 1024, token: token)
+            guard (200...299).contains(response.statusCode),
                   response.mimeType?.lowercased().hasPrefix("image/")==true else { return nil }
-            return data
+            return try Data(contentsOf: file)
         }) {
             return WebMediaInfo(url:cover.url,title:"YouTube thumbnail",kind:.image,site:"YouTube",duration:nil,heights:[],direct:true,
                                 filename:cover.url.lastPathComponent,byteCount:Int64(cover.byteCount),imageWidth:cover.width,imageHeight:cover.height)
         }
-        var request=URLRequest(url:url);request.httpMethod="HEAD";request.timeoutInterval=15
-        if let (_,response)=try? await session.data(for:request),let http=response as? HTTPURLResponse,(200...299).contains(http.statusCode),
+        // Security/transport failures must not fall through to an unpinned extractor.
+        let response = try await PublicWebTransfer.fetchAsync(url, to: staging.appendingPathComponent("head"), head: true, maximumBytes: 0, token: token)
+        if (200...299).contains(response.statusCode),
            let kind=directKind(mime:response.mimeType,extension:url.pathExtension) {
             try token.check();try Task.checkCancellation()
             return WebMediaInfo(url:url,title:cleanFilename(response.suggestedFilename ?? url.lastPathComponent,mime:response.mimeType),kind:kind,site:url.host ?? "Web",duration:nil,heights:[],direct:true,filename:response.suggestedFilename,byteCount:response.expectedContentLength>0 ? response.expectedContentLength:nil)
@@ -63,6 +68,18 @@ public enum WebDownloadEngine {
         let data=try await Task.detached { try WebDownloadProcess.run(Dependencies.executable("yt-dlp"),args,token:token,timeout:100) }.value
         try Task.checkCancellation();try token.check()
         return try parseMetadata(data,url:url)
+    }
+
+    /// Fetch a bounded image preview through the same network boundary as downloads.
+    public static func preview(_ url: URL) async throws -> Data {
+        let staging = try OutputFiles.temporaryDirectory()
+        defer { try? FileManager.default.removeItem(at: staging) }
+        let file = staging.appendingPathComponent("preview")
+        let response = try await PublicWebTransfer.fetchAsync(url, to: file, maximumBytes: 8 * 1024 * 1024, token: .init())
+        guard (200...299).contains(response.statusCode), response.mimeType?.hasPrefix("image/") == true else {
+            throw NashiError.failed("The preview is not a public image.")
+        }
+        return try Data(contentsOf: file)
     }
 
     public static func parseMetadata(_ data:Data,url:URL) throws -> WebMediaInfo {
@@ -95,6 +112,7 @@ public enum WebDownloadEngine {
         } else if info.direct {
             results=try await downloadDirect(info,mode:mode,directory:area.directory,token:token,progress:progress)
         } else {
+            _ = try await Task.detached { try PublicWebPolicy.pinnedAddress(for: info.url) }.value
             let arguments=try downloadArguments(info,mode:mode,maximumHeight:maximumHeight,directory:area.directory)
             let data=try await Task.detached { try WebDownloadProcess.run(Dependencies.executable("yt-dlp"),arguments,token:token,timeout:21_600,progress:progress) }.value
             results=String(decoding:data,as:UTF8.self).split(separator:"\n").compactMap { line in
@@ -162,25 +180,11 @@ public enum WebDownloadEngine {
 
     static func downloadDirect(_ info:WebMediaInfo,mode:WebDownloadMode,directory:URL,token:CancellationToken,
                                        progress:@escaping ProgressHandler) async throws -> [URL] {
-        let delegate=TransferDelegate(token:token,progress:progress)
-        let configuration=URLSessionConfiguration.ephemeral;configuration.timeoutIntervalForRequest=45;configuration.timeoutIntervalForResource=21_600
-        let session=URLSession(configuration:configuration,delegate:delegate,delegateQueue:nil)
-        let watchdog=Task.detached {
-            while !Task.isCancelled {
-                if token.isCancelled { delegate.cancel();return }
-                try? await Task.sleep(nanoseconds:100_000_000)
-            }
-        }
-        defer { watchdog.cancel();session.invalidateAndCancel() }
-        // The async convenience download API installs an internal download delegate
-        // and suppresses didWriteData, even with a task delegate. Use the real
-        // delegate lifecycle so progress arrives while the transfer is running.
-        let (temporary,response)=try await withTaskCancellationHandler {
-            try await delegate.download(info.url,session:session)
-        } onCancel:{ delegate.cancel() }
+        let temporary = directory.appendingPathComponent(".download-\(UUID().uuidString)")
+        let response = try await PublicWebTransfer.fetchAsync(info.url, to: temporary, maximumBytes: 20 * 1024 * 1024 * 1024, token: token, progress: progress)
         defer { try? FileManager.default.removeItem(at:temporary) }
         try token.check();try Task.checkCancellation()
-        guard let http=response as? HTTPURLResponse,(200...299).contains(http.statusCode),
+        guard (200...299).contains(response.statusCode),
               directKind(mime:response.mimeType,extension:info.url.pathExtension) != nil else { throw NashiError.failed("The link no longer returns a media file. Copy its current media or share link and try again.") }
         let name=cleanFilename(response.suggestedFilename ?? info.filename ?? info.title,mime:response.mimeType)
         let raw=directory.appendingPathComponent(name)
@@ -228,58 +232,4 @@ public enum WebDownloadEngine {
         return "The site could not provide this media. Try a fresh public share link or a direct media URL."
     }
 
-    private final class TransferDelegate:NSObject,URLSessionDownloadDelegate,@unchecked Sendable {
-        let token:CancellationToken,progress:ProgressHandler
-        init(token:CancellationToken,progress:@escaping ProgressHandler) { self.token=token;self.progress=progress }
-        private let transferLock=NSLock()
-        private var cancelled=false
-        private var task:URLSessionDownloadTask?
-        private var continuation:CheckedContinuation<(URL,URLResponse),Error>?
-        private var downloaded:(URL,URLResponse)?
-        private var downloadError:Error?
-        func download(_ url:URL,session:URLSession) async throws -> (URL,URLResponse) {
-            try await withCheckedThrowingContinuation { continuation in
-                transferLock.lock()
-                guard !cancelled,!token.isCancelled else {
-                    transferLock.unlock();continuation.resume(throwing:NashiError.cancelled);return
-                }
-                let task=session.downloadTask(with:url)
-                self.continuation=continuation;self.task=task
-                transferLock.unlock()
-                task.resume()
-            }
-        }
-        func cancel() {
-            transferLock.lock();cancelled=true;let active=task;transferLock.unlock()
-            active?.cancel()
-        }
-        func urlSession(_ session:URLSession,downloadTask:URLSessionDownloadTask,didFinishDownloadingTo location:URL) {
-            // URLSession removes its temporary file when this callback returns.
-            // Retain only our own copy until didComplete validates the transfer.
-            let copy=FileManager.default.temporaryDirectory.appendingPathComponent("Nashi-Download-\(UUID().uuidString).tmp")
-            do {
-                guard let response=downloadTask.response else { throw NashiError.failed("The server did not return a response.") }
-                try FileManager.default.moveItem(at:location,to:copy)
-                downloaded=(copy,response)
-            } catch { downloadError=error }
-        }
-        func urlSession(_ session:URLSession,task:URLSessionTask,didCompleteWithError error:Error?) {
-            transferLock.lock();let continuation=self.continuation;self.continuation=nil;self.task=nil;transferLock.unlock()
-            guard let continuation else { return }
-            if let error=error ?? downloadError {
-                if let downloaded { try? FileManager.default.removeItem(at:downloaded.0) }
-                continuation.resume(throwing:error)
-            } else if let downloaded { continuation.resume(returning:downloaded) }
-            else { continuation.resume(throwing:NashiError.failed("The server returned no downloadable file.")) }
-            downloaded=nil
-        }
-        func urlSession(_ session:URLSession,downloadTask:URLSessionDownloadTask,didWriteData bytesWritten:Int64,totalBytesWritten:Int64,totalBytesExpectedToWrite:Int64) {
-            if token.isCancelled { downloadTask.cancel();return }
-            let fraction=totalBytesExpectedToWrite>0 ? min(1,Double(totalBytesWritten)/Double(totalBytesExpectedToWrite)):0
-            progress(totalBytesExpectedToWrite>0 ? fraction:OperationProgress.indeterminate,"Downloading · \(ByteCountFormatter.string(fromByteCount:totalBytesWritten,countStyle:.file))")
-        }
-        func urlSession(_ session:URLSession,task:URLSessionTask,willPerformHTTPRedirection response:HTTPURLResponse,newRequest request:URLRequest,completionHandler:@escaping(URLRequest?)->Void) {
-            completionHandler(request.url.flatMap{try? WebDownloadEngine.link($0.absoluteString)} == nil ? nil:request)
-        }
-    }
 }

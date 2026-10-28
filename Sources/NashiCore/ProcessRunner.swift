@@ -8,7 +8,7 @@ public struct ProcessResult: Sendable {
 
 public enum ProcessRunner {
     @discardableResult
-    public static func run(_ executable: URL, _ arguments: [String], directory: URL? = nil, token: CancellationToken = .init(), environment: [String: String] = [:], onOutput: (@Sendable (Data) -> Void)? = nil) throws -> ProcessResult {
+    public static func run(_ executable: URL, _ arguments: [String], directory: URL? = nil, token: CancellationToken = .init(), environment: [String: String] = [:], onOutput: (@Sendable (Data) -> Void)? = nil, outputSink: (@Sendable (Data) throws -> Void)? = nil, timeout: TimeInterval? = nil) throws -> ProcessResult {
         try token.check()
         let process = Process()
         process.executableURL = executable
@@ -16,8 +16,9 @@ public enum ProcessRunner {
         // external playlist segment. Local pipes/data/encrypted files still work.
         process.arguments = ["ffmpeg","ffprobe"].contains(executable.lastPathComponent) && !arguments.contains("-protocol_whitelist") ? ["-protocol_whitelist","file,pipe,crypto,data"]+arguments:arguments
         process.currentDirectoryURL = directory
-        process.environment = ProcessInfo.processInfo.environment.merging(environment) { _, new in new }
+        process.environment = safeEnvironment().merging(environment) { _, new in new }
         let output = Pipe(), errors = Pipe()
+        process.standardInput = FileHandle.nullDevice
         process.standardOutput = output; process.standardError = errors
         // Drain both streams concurrently: codec diagnostics can exceed a pipe buffer.
         let group = DispatchGroup()
@@ -30,22 +31,42 @@ public enum ProcessRunner {
             while true {
                 let chunk = output.fileHandleForReading.availableData
                 guard !chunk.isEmpty else { break }
-                captured.output.append(chunk)
-                if onOutput != nil && captured.output.count>2_000_000 {
-                    captured.output.removeFirst(captured.output.count-2_000_000)
-                }
-                onOutput?(chunk)
+                if captured.failure != nil { continue }
+                do {
+                    if let outputSink { try outputSink(chunk) }
+                    else {
+                        guard captured.output.count + chunk.count <= 64 * 1024 * 1024 else {
+                            throw NashiError.failed("The tool returned too much output.")
+                        }
+                        captured.output.append(chunk)
+                        if onOutput != nil && captured.output.count > 2_000_000 {
+                            captured.output.removeFirst(captured.output.count - 2_000_000)
+                        }
+                    }
+                    onOutput?(chunk)
+                } catch { captured.failure = error }
             }
         }
         group.enter()
-        DispatchQueue.global().async { captured.errors = errors.fileHandleForReading.readDataToEndOfFile(); group.leave() }
+        DispatchQueue.global().async {
+            defer { group.leave() }
+            while true {
+                let chunk = errors.fileHandleForReading.availableData
+                guard !chunk.isEmpty else { break }
+                captured.errors.append(chunk)
+                if captured.errors.count > 64 * 1024 { captured.errors.removeFirst(captured.errors.count - 64 * 1024) }
+            }
+        }
         do { try process.run() } catch {
             try? output.fileHandleForWriting.close(); try? errors.fileHandleForWriting.close()
             group.wait()
             throw error
         }
+        let deadline = timeout.map { Date().addingTimeInterval($0) }
+        var timedOut = false
         while process.isRunning {
-            if token.isCancelled {
+            timedOut = deadline.map { Date() > $0 } ?? false
+            if token.isCancelled || captured.failure != nil || timedOut {
                 process.terminate()
                 let deadline = Date().addingTimeInterval(2)
                 while process.isRunning && Date() < deadline { Thread.sleep(forTimeInterval: 0.02) }
@@ -56,13 +77,31 @@ public enum ProcessRunner {
         }
         process.waitUntilExit(); group.wait()
         try token.check()
+        if let failure = captured.failure { throw failure }
+        if timedOut { throw NashiError.failed("The tool exceeded its time limit.") }
         guard process.terminationStatus == 0 else {
             let diagnostic = String(decoding: captured.errors.suffix(6000), as: UTF8.self).trimmingCharacters(in: .whitespacesAndNewlines)
             throw NashiError.failed(diagnostic.isEmpty ? "\(executable.lastPathComponent) exited with code \(process.terminationStatus)." : diagnostic)
         }
         return ProcessResult(output: captured.output, errorOutput: captured.errors)
     }
-    private final class Capture: @unchecked Sendable { var output=Data(); var errors=Data() }
+    /// Inherit only process essentials. In particular, never forward proxy,
+    /// interpreter injection, dynamic-loader or cloud credential variables.
+    static func safeEnvironment(_ source: [String: String] = ProcessInfo.processInfo.environment) -> [String: String] {
+        var result = source.filter { ["HOME", "USER", "LOGNAME", "TMPDIR", "LANG", "LC_ALL", "LC_CTYPE", "TZ"].contains($0.key) }
+        result["PATH"] = "/usr/bin:/bin:/usr/sbin:/sbin"
+        return result
+    }
+
+    private final class Capture: @unchecked Sendable {
+        var output = Data(), errors = Data()
+        private let lock = NSLock()
+        private var storedFailure: Error?
+        var failure: Error? {
+            get { lock.lock(); defer { lock.unlock() }; return storedFailure }
+            set { lock.lock(); defer { lock.unlock() }; storedFailure = newValue }
+        }
+    }
 }
 
 public enum Dependencies {
@@ -122,7 +161,7 @@ public enum OutputFiles {
     }
     public static func temporaryDirectory() throws -> URL {
         let url = FileManager.default.temporaryDirectory.appendingPathComponent("Nashi-\(UUID().uuidString)", isDirectory: true)
-        try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true)
+        try FileManager.default.createDirectory(at: url, withIntermediateDirectories: false, attributes: [.posixPermissions: 0o700])
         return url
     }
     public static func validate(_ urls: [URL]) throws {

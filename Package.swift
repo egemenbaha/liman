@@ -7,6 +7,7 @@ let package = Package(
     products: [
         .library(name: "NashiCore", targets: ["NashiCore"]),
         .executable(name: "Nashi", targets: ["NashiApp"]),
+        .executable(name: "Liman", targets: ["NashiApp"]),
         .executable(name: "nashi-cli", targets: ["NashiCLI"])
     ],
     dependencies: [

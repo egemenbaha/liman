@@ -1,0 +1,7 @@
+....
+----------------------------------------------------------------------
+Ran 4 tests in 0.030s
+
+OK
+Liman local build: updates disabled; no upstream trust identity.
+Liman local build: updates disabled; no upstream trust identity.

@@ -1,0 +1,20 @@
+[0/1] Planning build
+Building for debugging...
+[0/1] Write swift-version--1AB21518FC5DEDBE.txt
+Build of target: 'NashiUpdates' complete! (0.63s)
+PASS valid pinned signing configuration retained
+PASS missing signing key refused
+PASS required SURequireSignedFeed
+PASS required SUVerifyUpdateBeforeExtraction
+PASS unsafe update feed rejected
+PASS unsafe update feed rejected
+PASS unsafe update feed rejected
+PASS unsafe update feed rejected
+PASS malformed signing key rejected
+PASS malformed signing key rejected
+PASS malformed signing key rejected
+PASS default fork does not restore upstream identity
+PASS default fork update and connection controls disabled
+PASS local fork refuses connection before credential access
+PASS existing preference not deleted
+15 update checks passed (policy/configuration; no signed release installed)

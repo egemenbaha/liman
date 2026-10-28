@@ -1,0 +1,92 @@
+[0/1] Planning build
+Building for debugging...
+[0/1] Write swift-version--1AB21518FC5DEDBE.txt
+Build of target: 'NashiCore' complete! (0.56s)
+PASS refuse host 127.0.0.1
+PASS refuse host 127.1
+PASS refuse host 2130706433
+PASS refuse host 0x7f000001
+PASS refuse host 0177.0.0.1
+PASS refuse host 0.0.0.0
+PASS refuse host 10.1.1.1
+PASS refuse host 172.16.1.1
+PASS refuse host 192.168.1.1
+PASS refuse host 169.254.169.254
+PASS refuse host 100.64.0.1
+PASS refuse host 192.0.2.1
+PASS refuse host 198.18.0.1
+PASS refuse host 198.51.100.1
+PASS refuse host 203.0.113.1
+PASS refuse host 224.0.0.1
+PASS refuse host 255.255.255.255
+PASS refuse host [::1]
+PASS refuse host [::]
+PASS refuse host [::ffff:127.0.0.1]
+PASS refuse host [fc00::1]
+PASS refuse host [fe80::1]
+PASS refuse host [64:ff9b::7f00:1]
+PASS refuse host [2002:7f00:1::1]
+PASS refuse host [2001:db8::1]
+PASS refuse host [fe80::1%25en0]
+PASS refuse host localhost
+PASS refuse host host.local
+PASS refuse host host.local.
+PASS refuse host printer
+PASS refuse host host.home.arpa
+PASS allow global 8.8.8.8
+PASS allow global 1.1.1.1
+PASS allow global 93.184.215.14
+PASS allow global 2606:4700:4700::1111
+PASS allow global 2001:4860:4860::8888
+PASS mixed DNS answer refused
+PASS empty DNS answer refused
+PASS DNS failure is closed
+PASS validated address pinned without second DNS lookup
+PASS curl config proxies redirects globbing disabled
+PASS TLS hostname preserved
+PASS IPv6 pinned
+PASS unsafe redirect refused "http://example.org/a"
+PASS unsafe redirect refused "https://127.0.0.1/a"
+PASS unsafe redirect refused "file:///etc/passwd"
+PASS unsafe redirect refused "https://u:p@example.org"
+PASS unsafe redirect refused "https://example.org/\nX"
+PASS relative redirect preserved
+PASS redirect loop bounded
+PASS redirect DNS checked again
+PASS actual streamed cap before disk write
+PASS body intact and capped
+PASS header cap
+PASS declared size
+PASS duplicate redirect
+PASS HEAD may describe a large file
+PASS private temporary folder
+PASS private downloaded file
+PASS child environment excludes credentials and injection
+PASS process uses literal argv
+PASS stdin is closed
+PASS process timeout
+PASS stream sink can stop a process
+PASS archive path refused ../outside
+PASS archive path refused /absolute
+PASS archive path refused C:\escape
+PASS archive path refused a\..\outside
+PASS archive path refused a/../../outside
+PASS archive path refused a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a/a
+PASS archive path refused xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+PASS archive actual byte cap
+PASS archive ratio cap
+PASS archive invalid limits refused
+PASS ordinary archive retains content
+PASS archive cannot grant group or world permissions
+PASS archive refuses existing symlink
+PASS symlink target intact
+PASS stderr drained with bounded retention
+PASS real malicious archive refused traversal.zip
+PASS real malicious archive refused absolute.zip
+PASS real malicious archive refused backslash.zip
+PASS real archive entry count limited
+PASS failed extraction has no outside write
+PASS known SHA256 accepted
+PASS tampered runtime checksum refused
+PASS live pinned HTTPS and body
+87 security checks passed

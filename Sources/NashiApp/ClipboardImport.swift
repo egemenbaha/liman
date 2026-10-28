@@ -9,8 +9,8 @@ import NashiCore
             var seen=Set<URL>();let existing=urls.filter{FileManager.default.fileExists(atPath:$0.path) && seen.insert($0).inserted}
             guard !existing.isEmpty else { throw ImportError.unavailable };return Result(urls:existing,label:"Pasted files")
         }
-        let folder=directory ?? FileManager.default.urls(for:.applicationSupportDirectory,in:.userDomainMask)[0].appendingPathComponent("Nashi/Imports",isDirectory:true)
-        func destination(_ ext:String)throws->URL {try FileManager.default.createDirectory(at:folder,withIntermediateDirectories:true);let date=DateFormatter();date.dateFormat="yyyy-MM-dd HH-mm-ss";return folder.appendingPathComponent("Clipboard \(date.string(from:Date()))-\(UUID().uuidString.prefix(6)).\(ext)")}
+        let folder=directory ?? FileManager.default.urls(for:.applicationSupportDirectory,in:.userDomainMask)[0].appendingPathComponent("Liman/Imports",isDirectory:true)
+        func destination(_ ext:String)throws->URL {try FileManager.default.createDirectory(at:folder,withIntermediateDirectories:true,attributes:[.posixPermissions:0o700]);let date=DateFormatter();date.dateFormat="yyyy-MM-dd HH-mm-ss";return folder.appendingPathComponent("Clipboard \(date.string(from:Date()))-\(UUID().uuidString.prefix(6)).\(ext)")}
         if let image=NSImage(pasteboard:pasteboard),let tiff=image.tiffRepresentation,let rep=NSBitmapImageRep(data:tiff) {
             guard rep.pixelsWide>0,rep.pixelsHigh>0,Int64(rep.pixelsWide)*Int64(rep.pixelsHigh)<=100_000_000,let png=rep.representation(using:.png,properties:[:]) else { throw ImportError.imageTooLarge }
             let url=try destination("png");try png.write(to:url,options:.atomic);return Result(urls:[url],label:"Pasted image")

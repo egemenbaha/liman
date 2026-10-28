@@ -1,0 +1,13 @@
+[0/1] Planning build
+Building for debugging...
+[0/3] Write swift-version--1AB21518FC5DEDBE.txt
+Build of product 'Liman' complete! (0.54s)
+Generated English/Turkish native tables: 2123 keys
+Liman local build: updates disabled; no upstream trust identity.
+<checkout>/build/Liman.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Installer.xpc: replacing existing signature
+<checkout>/build/Liman.app/Contents/Frameworks/Sparkle.framework/Versions/B/XPCServices/Downloader.xpc: replacing existing signature
+<checkout>/build/Liman.app/Contents/Frameworks/Sparkle.framework/Versions/B/Autoupdate: replacing existing signature
+<checkout>/build/Liman.app/Contents/Frameworks/Sparkle.framework/Versions/B/Updater.app: replacing existing signature
+<checkout>/build/Liman.app/Contents/Frameworks/Sparkle.framework: replacing existing signature
+<checkout>/build/Liman.app: replacing existing signature
+<checkout>/build/Liman.app

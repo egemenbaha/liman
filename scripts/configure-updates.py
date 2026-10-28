@@ -22,6 +22,15 @@ def apply_configuration(info_path, configuration_path, environ=None):
     if path.is_file():
         with path.open("rb") as stream:
             configuration = plistlib.load(stream)
+        if configuration.get("Disabled") is True:
+            for name in ("SUFeedURL", "SUPublicEDKey", "NashiPublicUpdateRepository", "NashiSuggestedGitHubRepository", "NashiLocalUpdateFeed"):
+                info.pop(name, None)
+            info["SUEnableAutomaticChecks"] = False
+            info["LimanLocalOnly"] = True
+            with open(info_path, "wb") as stream:
+                plistlib.dump(info, stream)
+            print("Liman local build: updates disabled; no upstream trust identity.")
+            return
         feed = configuration.get("FeedURL", "")
         key = configuration.get("PublicEDKey", "")
         address = urlsplit(feed)

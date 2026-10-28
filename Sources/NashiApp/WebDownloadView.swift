@@ -139,7 +139,7 @@ struct WebDownloadView:View {
                                         var ids=model.selectedPhotos;if selected { ids.insert(photo.id) } else { ids.remove(photo.id) };model.selectPhotos(ids)
                                     })) {
                                         HStack(spacing:12) {
-                                            AsyncImage(url:photo.url) { image in image.resizable().scaledToFit() } placeholder:{Image(systemName:"photo").foregroundStyle(.secondary)}
+                                            PublicMediaPreview(url: photo.url)
                                                 .frame(width:88,height:76).background(NashiPalette.sand,in:RoundedRectangle(cornerRadius:8))
                                             VStack(alignment:.leading,spacing:4) {
                                                 Text("Photo \(photo.id)").font(.callout.weight(.semibold))
@@ -197,5 +197,22 @@ struct WebDownloadView:View {
         if let height=info.heights.max() { details.append("\(height)p") }
         if let bytes=info.byteCount { details.append(ByteCountFormatter.string(fromByteCount:bytes,countStyle:.file)) }
         return details.joined(separator:" · ")
+    }
+}
+
+/// SwiftUI's default AsyncImage follows redirects outside our address policy.
+private struct PublicMediaPreview: View {
+    let url: URL
+    @State private var image: NSImage?
+    var body: some View {
+        Group {
+            if let image { Image(nsImage: image).resizable().scaledToFit() }
+            else { Image(systemName: "photo").foregroundStyle(.secondary) }
+        }.task(id: url) {
+            image = nil
+            if let data = try? await WebDownloadEngine.preview(url), !Task.isCancelled {
+                image = NSImage(data: data)
+            }
+        }
     }
 }

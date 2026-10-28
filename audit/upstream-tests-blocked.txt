@@ -1,0 +1,15 @@
+Baseline swift test could not run on this Command Line Tools installation.
+
+[22/67] Emitting module NashiUpdates
+[23/67] Compiling NashiUpdates AppUpdater.swift
+[24/76] Compiling NashiUpdatesTests UpdateCredentialStoreTests.swift
+<checkout>/Tests/NashiUpdatesTests/BrandMigrationTests.swift:1:8: error: no such module 'XCTest'
+ 1 | import XCTest
+   |        `- error: no such module 'XCTest'
+ 2 | @testable import NashiUpdates
+ 3 |
+[25/76] Compiling NashiUpdatesTests UpdateRelaunchTests.swift
+<checkout>/Tests/NashiUpdatesTests/BrandMigrationTests.swift:1:8: error: no such module 'XCTest'
+ 1 | import XCTest
+
+error: fatalError

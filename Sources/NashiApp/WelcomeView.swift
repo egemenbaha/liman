@@ -21,7 +21,7 @@ struct WelcomeView:View {
         VStack(spacing:0) {
             HStack(spacing:12) {
                 Button(action:onClose) { Image(systemName:"xmark").font(.system(size:11,weight:.semibold)) }.buttonStyle(NashiButtonStyle(.quiet,compact:true)).accessibilityLabel("Close welcome").keyboardShortcut(.cancelAction)
-                ZStack { WindowDragRegion();Text("A FRESH START").font(.system(size:10,weight:.bold,design:.rounded)).tracking(1.5).foregroundStyle(.secondary).allowsHitTesting(false) }
+                ZStack { WindowDragRegion();Text("LIMAN · INDEPENDENT LOCAL FORK").font(.system(size:10,weight:.bold,design:.rounded)).tracking(1.5).foregroundStyle(.secondary).allowsHitTesting(false) }
                 Button("Skip tour",action:onDone).buttonStyle(NashiButtonStyle(.quiet,compact:true))
             }.padding(.horizontal,22).padding(.top,15)
             HStack(spacing:28) {

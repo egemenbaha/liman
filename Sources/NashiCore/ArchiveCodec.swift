@@ -10,8 +10,17 @@ enum ArchiveCodec {
     struct ExtractionLimits {
         var maximumEntries=100_000
         var maximumBytes:Int64=20*1024*1024*1024
+        var maximumExpansionRatio:Int64=1000
+        var ratioGraceBytes:Int64=16*1024*1024
     }
     static func extract(_ input: URL, into root: URL, password: String = "", token: CancellationToken, limits:ExtractionLimits=ExtractionLimits()) throws {
+        guard limits.maximumEntries > 0, limits.maximumBytes >= 0,
+              limits.maximumExpansionRatio > 0, limits.ratioGraceBytes >= 0 else {
+            throw NashiError.invalidInput("Invalid archive safety limits.")
+        }
+        let inputBytes = max(1, (try FileManager.default.attributesOfItem(atPath: input.path)[.size] as? NSNumber)?.int64Value ?? 0)
+        let (ratioBytes, overflow) = inputBytes.multipliedReportingOverflow(by: limits.maximumExpansionRatio)
+        let expansionLimit = min(limits.maximumBytes, max(limits.ratioGraceBytes, overflow ? Int64.max : ratioBytes))
         let a = try api.get()
         guard let reader = a.readNew() else { throw NashiError.failed("Could not initialize the archive reader.") }
         defer { _ = a.readFree(reader) }
@@ -25,7 +34,7 @@ enum ArchiveCodec {
         if !password.isEmpty { try a.check(password.withCString { a.readPassphrase(reader, $0) }, handle: reader) }
         try a.check(input.path.withCString { a.readOpen(reader, $0, 128 * 1024) }, handle: reader)
         let fm = FileManager.default
-        try fm.createDirectory(at: root, withIntermediateDirectories: true)
+        try fm.createDirectory(at: root, withIntermediateDirectories: true, attributes: [.posixPermissions: 0o700])
         var links: [DeferredLink] = []
         var entries = 0
         var expandedBytes:Int64=0
@@ -66,17 +75,17 @@ enum ArchiveCodec {
             }
             let kind = a.entryFiletype(entry) & 0o170000
             if kind == 0o040000 {
-                try fm.createDirectory(at: destination, withIntermediateDirectories: true)
+                try fm.createDirectory(at: destination, withIntermediateDirectories: true, attributes: [.posixPermissions: 0o700])
                 continue
             }
             guard kind == 0o100000 || kind == 0 else {
                 throw NashiError.invalidInput("The archive contains an unsupported special file: \(name)")
             }
-            try fm.createDirectory(at: destination.deletingLastPathComponent(), withIntermediateDirectories: true)
+            try fm.createDirectory(at: destination.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: [.posixPermissions: 0o700])
             guard !fm.fileExists(atPath: destination.path) else {
                 throw NashiError.invalidInput("The archive contains duplicate file paths: \(name)")
             }
-            guard fm.createFile(atPath: destination.path, contents: nil) else { throw NashiError.failed("Could not create \(name).") }
+            guard fm.createFile(atPath: destination.path, contents: nil, attributes: [.posixPermissions: 0o600]) else { throw NashiError.failed("Could not create \(name).") }
             let file = try FileHandle(forWritingTo: destination)
             do {
                 while true {
@@ -84,13 +93,13 @@ enum ArchiveCodec {
                     let count = buffer.withUnsafeMutableBytes { a.readData(reader, $0.baseAddress, $0.count) }
                     if count == 0 { break }
                     guard count > 0 else { throw a.failure(reader) }
-                    guard Int64(count)<=limits.maximumBytes-expandedBytes else {throw NashiError.invalidInput("The archive expands beyond the 20 GB safety limit.")}
+                    guard Int64(count)<=expansionLimit-expandedBytes else {throw NashiError.invalidInput("The archive exceeds its expanded-size or compression-ratio limit.")}
                     expandedBytes += Int64(count)
                     try file.write(contentsOf: Data(buffer[0..<count]))
                 }
                 try file.close()
             } catch { try? file.close(); throw error }
-            let mode = a.entryPerm(entry) & 0o777
+            let mode = (a.entryPerm(entry) & 0o700) | 0o600
             if mode != 0 { try? fm.setAttributes([.posixPermissions: NSNumber(value: mode)], ofItemAtPath: destination.path) }
             let mtime = a.entryMtime(entry)
             if mtime > 0 { try? fm.setAttributes([.modificationDate: Date(timeIntervalSince1970: TimeInterval(mtime))], ofItemAtPath: destination.path) }
@@ -109,7 +118,7 @@ enum ArchiveCodec {
             guard attributes[.type] as? FileAttributeType == .typeRegular else {
                 throw NashiError.invalidInput("An archive hard link does not point to a regular file.")
             }
-            try fm.createDirectory(at: link.destination.deletingLastPathComponent(), withIntermediateDirectories: true)
+            try fm.createDirectory(at: link.destination.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: [.posixPermissions: 0o700])
             try fm.linkItem(at: target, to: link.destination)
         }
         for link in links.filter({ !$0.hard }) {
@@ -118,7 +127,7 @@ enum ArchiveCodec {
             // exists now, before creating directories or the link itself.
             try validateDestination(link.destination, root: root)
             try validateSymbolicTarget(link.target, at: link.destination, root: root)
-            try fm.createDirectory(at: link.destination.deletingLastPathComponent(), withIntermediateDirectories: true)
+            try fm.createDirectory(at: link.destination.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: [.posixPermissions: 0o700])
             try fm.createSymbolicLink(atPath: link.destination.path, withDestinationPath: link.target)
         }
         // A chain of individually relative links must also stay inside the root.
@@ -208,6 +217,7 @@ enum ArchiveCodec {
             throw NashiError.invalidInput("The archive contains an absolute path.")
         }
         let parts = normalized.split(separator: "/", omittingEmptySubsequences: true)
+        guard normalized.utf8.count <= 4096, parts.count <= 64 else { throw NashiError.invalidInput("The archive path is too long or deeply nested.") }
         guard !parts.contains("..") else { throw NashiError.invalidInput("The archive contains a path outside its extraction folder.") }
         let relative = parts.filter { $0 != "." }.joined(separator: "/")
         let url = root.appendingPathComponent(relative).standardizedFileURL

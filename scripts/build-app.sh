@@ -4,14 +4,13 @@ cd "${0:A:h:h}"
 configuration=${1:-release}
 source scripts/signing-configuration.sh
 nashi_load_signing_configuration
-nashi_selected_update_config=${NASHI_UPDATE_CONFIG:-Configuration/Updates.plist}
-nashi_public_build=false
-if [[ -f "$nashi_selected_update_config" ]] && plutil -type PublicRepository "$nashi_selected_update_config" >/dev/null 2>&1; then nashi_public_build=true; fi
+# Liman keeps large tools external and never bundles the upstream credential broker.
+nashi_public_build=true
 if [[ "$nashi_signing_mode" != ad-hoc && "$nashi_public_build" == false ]]; then python3 scripts/build-credential-broker.py; fi
 # Release binaries do not embed the builder's home-directory/source paths.
-swift build -c "$configuration" --product Nashi -Xswiftc -file-prefix-map -Xswiftc "$PWD=/nashi" -Xswiftc -file-compilation-dir -Xswiftc /nashi
+swift build -c "$configuration" --product Liman -Xswiftc -file-prefix-map -Xswiftc "$PWD=/liman" -Xswiftc -file-compilation-dir -Xswiftc /liman
 binary_dir=$(swift build -c "$configuration" --show-bin-path)
-application=${NASHI_APP_OUTPUT:-"$PWD/build/Nashi.app"}
+application=${NASHI_APP_OUTPUT:-"$PWD/build/Liman.app"}
 sparkle_root="$PWD/.build/artifacts/sparkle/Sparkle"
 sparkle_framework="$sparkle_root/Sparkle.xcframework/macos-arm64_x86_64/Sparkle.framework"
 if [[ ! -d "$sparkle_framework" ]]; then print -u2 "Missing Sparkle framework; run swift package resolve"; exit 1; fi
@@ -21,8 +20,8 @@ if [[ -f "$application/Contents/Info.plist" ]]; then
   if [[ "$existing_identifier" != "$expected_identifier" ]]; then print -u2 "Refusing to overwrite a different application at $application"; exit 1; fi
 fi
 mkdir -p "$application/Contents/MacOS" "$application/Contents/Resources/Tools"
-cp "$binary_dir/Nashi" "$application/Contents/MacOS/Nashi"
-if [[ "$configuration" == release ]]; then /usr/bin/strip -S "$application/Contents/MacOS/Nashi"; fi
+cp "$binary_dir/Liman" "$application/Contents/MacOS/Liman"
+if [[ "$configuration" == release ]]; then /usr/bin/strip -S "$application/Contents/MacOS/Liman"; fi
 cp Resources/Info.plist "$application/Contents/Info.plist"
 python3 scripts/generate-localizations.py
 ditto Resources/Localizations "$application/Contents/Resources"
@@ -65,7 +64,9 @@ fi
 ditto Resources/Sounds "$application/Contents/Resources/Sounds"
 cp Resources/PagesInterop.js "$application/Contents/Resources/PagesInterop.js"
 cp Resources/PDFLib.js Resources/PDFInterop.js "$application/Contents/Resources/"
-if [[ -f Resources/NashiIcon.icns ]]; then cp Resources/NashiIcon.icns "$application/Contents/Resources/NashiIcon.icns"; fi
+if [[ -f Resources/LimanIcon.icns ]]; then cp Resources/LimanIcon.icns "$application/Contents/Resources/LimanIcon.icns"; fi
+cp LICENSE "$application/Contents/Resources/LICENSE.txt"
+cp NOTICE-LIMAN.md "$application/Contents/Resources/NOTICE-LIMAN.md"
 cp Resources/THIRD-PARTY-NOTICES.txt "$application/Contents/Resources/THIRD-PARTY-NOTICES.txt"
 ditto Resources/licenses "$application/Contents/Resources/licenses"
 cp "$sparkle_root/LICENSE" "$application/Contents/Resources/licenses/Sparkle-LICENSE.txt"

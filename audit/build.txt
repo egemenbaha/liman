@@ -1,0 +1,55 @@
+[0/1] Planning build
+Building for debugging...
+[0/4] Write sources
+[1/4] Write swift-version--1AB21518FC5DEDBE.txt
+[3/36] Compiling NashiApp WheelFeedback.swift
+[4/37] Compiling NashiApp ImageEditPreview.swift
+[5/37] Compiling NashiApp Localization.swift
+[6/37] Compiling NashiApp WindowManagementSmoke.swift
+[7/37] Compiling NashiApp LocalizationSmoke.swift
+[8/37] Compiling NashiApp MediaRangeAccessibilitySmoke.swift
+[9/37] Compiling NashiApp FilePreview.swift
+[10/37] Compiling NashiApp FormatPreferences.swift
+[11/37] Compiling NashiApp WebLinkPayload.swift
+[12/37] Compiling NashiApp WelcomeView.swift
+[13/37] Compiling NashiApp AnnotationDraftOverlay.swift
+[14/37] Compiling NashiApp AppState.swift
+[15/37] Compiling NashiApp UIAuditChecks.swift
+[16/37] Compiling NashiApp UpdateViews.swift
+[17/37] Compiling NashiApp MediaRangeInteraction.swift
+[18/37] Compiling NashiApp MediaTimeline.swift
+[19/37] Compiling NashiApp ToolSetupView.swift
+[20/37] Compiling NashiApp UIAudit.swift
+[21/37] Compiling NashiApp DesktopParitySmoke.swift
+[22/37] Compiling NashiApp EPUBOptionsView.swift
+[23/37] Compiling NashiApp Views.swift
+[24/37] Compiling NashiApp WebDownloadView.swift
+[25/37] Compiling NashiApp NashiApplication.swift
+[26/37] Compiling NashiApp ProgressToast.swift
+[27/37] Compiling NashiApp WindowManagement.swift
+[28/37] Compiling NashiApp ToolSetupModel.swift
+[29/37] Compiling NashiApp ToolSetupSmoke.swift
+[30/37] Compiling NashiApp HomeKeyboard.swift
+<checkout>/Sources/NashiApp/HomeView.swift:321:9: warning: result of call to 'withExtendedLifetime' is unused [#no-usage]
+319 |         let menu=NSMenu();let handlers=choices.map{Action($0.1)}
+320 |         for (index,choice) in choices.enumerated(){let item=NSMenuItem(title:choice.0,action:#selector(Action.invoke),keyEquivalent:"");item.target=handlers[index];menu.addItem(item)}
+321 |         withExtendedLifetime(handlers){menu.popUp(positioning:nil,at:NSEvent.mouseLocation,in:nil)}
+    |         `- warning: result of call to 'withExtendedLifetime' is unused [#no-usage]
+322 |     }
+323 | }
+[31/37] Compiling NashiApp HomeView.swift
+<checkout>/Sources/NashiApp/HomeView.swift:321:9: warning: result of call to 'withExtendedLifetime' is unused [#no-usage]
+319 |         let menu=NSMenu();let handlers=choices.map{Action($0.1)}
+320 |         for (index,choice) in choices.enumerated(){let item=NSMenuItem(title:choice.0,action:#selector(Action.invoke),keyEquivalent:"");item.target=handlers[index];menu.addItem(item)}
+321 |         withExtendedLifetime(handlers){menu.popUp(positioning:nil,at:NSEvent.mouseLocation,in:nil)}
+    |         `- warning: result of call to 'withExtendedLifetime' is unused [#no-usage]
+322 |     }
+323 | }
+[32/37] Compiling NashiApp Wheel.swift
+[33/37] Emitting module NashiApp
+[34/37] Compiling NashiApp QRCodeReaderView.swift
+[35/37] Compiling NashiApp ToolEditor.swift
+[35/38] Write Objects.LinkFileList
+[36/38] Linking Liman
+[37/38] Applying Liman
+Build of product 'Liman' complete! (6.93s)

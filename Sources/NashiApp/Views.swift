@@ -12,7 +12,7 @@ struct SettingsView:View {
     @State private var selectedFormat="jpg"
     @State private var formatSearch=""
     @ObservedObject private var preferences=FormatPreferences.shared
-    @AppStorage("enabled") private var enabled=true
+    @AppStorage("enabled") private var enabled=false
     @AppStorage("reveal") private var reveal=true
     @AppStorage("wheelScale") private var wheelScale=1.0
     @AppStorage("conversionFanTheme") private var fanTheme="glass"
@@ -27,7 +27,7 @@ struct SettingsView:View {
     @AppStorage("reduceAnimations") private var reduceAnimations=false
     @AppStorage("appAppearance") private var appAppearance="system"
     @AppStorage("appLanguage") private var appLanguage="en"
-    @AppStorage("windowManagementEnabled") private var windowManagementEnabled=true
+    @AppStorage("windowManagementEnabled") private var windowManagementEnabled=false
     @State private var windowAccessibility=AXIsProcessTrusted()
     @Environment(\.accessibilityReduceMotion) private var systemReducedMotion
     init(updater:AppUpdater,showingUpdates:Bool=false,initialSection:SettingsSection = .general) {
@@ -143,7 +143,7 @@ struct SettingsView:View {
                 }.padding(10)
             }
             DisclosureGroup("Additional options") { VStack(alignment:.leading,spacing:13) {
-                Toggle("Enable Nashi",isOn:$enabled)
+                Toggle("Enable Liman",isOn:$enabled)
                 Toggle("Reveal finished files in Finder",isOn:$reveal)
                 HStack { Text("Wheel size");Slider(value:$wheelScale,in:0.85...1.4).frame(width:230);Text("\(Int(wheelScale*100))%").monospacedDigit().frame(width:40) }
             }.padding(.top,12) }
@@ -295,7 +295,7 @@ private struct AboutSettingsView:View {
         VStack(spacing:17) {
             Spacer()
             NashiMark(size:96,happy:true)
-            Text("Nashi").font(.system(size:32,weight:.bold,design:.rounded))
+            Text("Liman").font(.system(size:32,weight:.bold,design:.rounded))
             Text("Your files, a little sweeter.").font(.headline)
             Text("Version \(version)").foregroundStyle(.secondary)
             Text("A little less file fuss. A little more flow.\nConvert, edit, and organize — right on your Mac.").multilineTextAlignment(.center).foregroundStyle(.secondary)

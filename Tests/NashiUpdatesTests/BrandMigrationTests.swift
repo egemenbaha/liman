@@ -18,7 +18,7 @@ final class BrandMigrationTests:XCTestCase {
         defaults.set(false,forKey:"TangerineUpdateGitHubAutomaticChecks")
         defaults.set("preserved history",forKey:"history")
         let store=UnusedCredentials()
-        let updater=await MainActor.run { AppUpdater(credentials:store,defaults:defaults) }
+        let updater=await MainActor.run { AppUpdater(credentials:store,defaults:defaults,info:[:]) }
         await MainActor.run { XCTAssertEqual(updater.repository?.slug,"orkunisitmak/nashi");XCTAssertTrue(updater.hasSavedToken);XCTAssertTrue(updater.requiresToken) }
         XCTAssertEqual(defaults.string(forKey:"TangerineUpdateGitHubRepository"),"orkunisitmak/nashi")
         XCTAssertFalse(defaults.bool(forKey:"TangerineUpdateGitHubAutomaticChecks"));XCTAssertEqual(defaults.string(forKey:"history"),"preserved history");XCTAssertEqual(store.reads,0)

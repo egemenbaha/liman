@@ -50,7 +50,7 @@ public final class KeychainUpdateCredentialStore: UpdateCredentialStore, @unchec
     private static let interactionLock = NSLock()
     private let service: String
 
-    public init(service: String = "local.tangerine.replica.github-updates") {
+    public init(service: String = "local.liman.filetoolkit.github-updates") {
         self.service = service
     }
 

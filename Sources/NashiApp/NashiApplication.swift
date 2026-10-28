@@ -122,7 +122,7 @@ enum NashiApplication {
 
     func applicationDidFinishLaunching(_ notification:Notification) {
         NashiAppearance.apply()
-        UserDefaults.standard.register(defaults:["enabled":true,"reveal":true,"sound":true,"convertKey":"shift","toolsKey":"command","actionsKey":"control","wheelScale":1.0,"windowManagementEnabled":true])
+        UserDefaults.standard.register(defaults:["enabled":false,"reveal":true,"sound":true,"convertKey":"shift","toolsKey":"command","actionsKey":"control","wheelScale":1.0,"windowManagementEnabled":false])
         let mainMenu=NSMenu();let appMenu=NSMenu()
         appMenu.addItem(withTitle:"Home",action:#selector(showHome),keyEquivalent:"1")
         appMenu.addItem(withTitle:"Library",action:#selector(showLibrary),keyEquivalent:"2")
@@ -133,25 +133,25 @@ enum NashiApplication {
         appMenu.addItem(withTitle:"Welcome…",action:#selector(showWelcome),keyEquivalent:"")
         appMenu.addItem(withTitle:"Check for Updates…",action:#selector(checkForUpdates),keyEquivalent:"u")
         appMenu.addItem(withTitle:"Update Connection…",action:#selector(showUpdateConnection),keyEquivalent:"")
-        appMenu.addItem(.separator());appMenu.addItem(withTitle:"Quit Nashi",action:#selector(quit),keyEquivalent:"q")
+        appMenu.addItem(.separator());appMenu.addItem(withTitle:"Quit Liman",action:#selector(quit),keyEquivalent:"q")
         for item in appMenu.items { item.target=self;if item.action == #selector(showDownloadLink) { item.keyEquivalent="d";item.keyEquivalentModifierMask=[.control,.shift] } };let appItem=NSMenuItem();appItem.submenu=appMenu;mainMenu.addItem(appItem)
         let edit=NSMenu(title:"Edit")
         for (title,key,selector) in [("Undo","z","undo:"),("Redo","Z","redo:"),("Cut","x","cut:"),("Copy","c","copy:"),("Paste","v","paste:"),("Select All","a","selectAll:")] { edit.addItem(withTitle:title,action:Selector(selector),keyEquivalent:key) }
         let editItem=NSMenuItem(title:"Edit",action:nil,keyEquivalent:"");editItem.submenu=edit;mainMenu.addItem(editItem);NSApp.mainMenu=mainMenu
         let windowMenu=NSMenu(title:"Window");windowMenu.addItem(withTitle:"Close Window",action:#selector(NSWindow.performClose(_:)),keyEquivalent:"w");let windowItem=NSMenuItem(title:"Window",action:nil,keyEquivalent:"");windowItem.submenu=windowMenu;mainMenu.addItem(windowItem);NSApp.windowsMenu=windowMenu
         let menu=NSMenu()
-        menu.addItem(withTitle:"Nashi",action:#selector(showHome),keyEquivalent:"")
+        menu.addItem(withTitle:"Liman",action:#selector(showHome),keyEquivalent:"")
         menu.addItem(NSMenuItem.separator())
         menu.addItem(withTitle:"Choose Files…",action:#selector(chooseFiles),keyEquivalent:"o")
         menu.addItem(withTitle:"Download Link…",action:#selector(showDownloadLink),keyEquivalent:"")
-        menu.addItem(withTitle:"Enable Nashi",action:#selector(toggleEnabled),keyEquivalent:"").state = UserDefaults.standard.bool(forKey:"enabled") ? .on : .off
+        menu.addItem(withTitle:"Enable Liman",action:#selector(toggleEnabled),keyEquivalent:"").state = UserDefaults.standard.bool(forKey:"enabled") ? .on : .off
         menu.addItem(withTitle:"Settings…",action:#selector(showSettings),keyEquivalent:",")
         menu.addItem(withTitle:"Welcome…",action:#selector(showWelcome),keyEquivalent:"")
         menu.addItem(withTitle:"Recent Conversions",action:#selector(showHome),keyEquivalent:"")
         menu.addItem(withTitle:"Check for Updates…",action:#selector(checkForUpdates),keyEquivalent:"")
         menu.addItem(withTitle:"Update Connection…",action:#selector(showUpdateConnection),keyEquivalent:"")
         menu.addItem(NSMenuItem.separator())
-        menu.addItem(withTitle:"Quit Nashi",action:#selector(quit),keyEquivalent:"q")
+        menu.addItem(withTitle:"Quit Liman",action:#selector(quit),keyEquivalent:"q")
         for item in menu.items { item.target=self }
         statusItem=NSStatusBar.system.statusItem(withLength:NSStatusItem.squareLength)
         statusItem.button?.image=NashiArtwork.menuIcon()
@@ -209,7 +209,7 @@ enum NashiApplication {
     @objc func showHome() {
         state.libraryVisible=false
         progressToast.dismiss()
-        if home == nil { home=makeWindow(title:"Nashi",size:NSSize(width:820,height:780),view:HomeView(state:state,updater:updater)) }
+        if home == nil { home=makeWindow(title:"Liman",size:NSSize(width:820,height:780),view:HomeView(state:state,updater:updater)) }
         home?.contentMinSize=NSSize(width:700,height:580)
         home?.makeKeyAndOrderFront(nil);NSApp.activate(ignoringOtherApps:true)
         if !toolSetupOffered, Bundle.main.object(forInfoDictionaryKey:"NashiExternalTools") as? Bool == true, !ExternalToolSetup.status.ready {
@@ -221,7 +221,7 @@ enum NashiApplication {
         if toolSetupWindow == nil {
             let model=ToolSetupModel()
             model.onWorkingChange={ [weak self] working in guard let self else{return};self.toolSetupWorking=working;self.toolSetupWindow?.standardWindowButton(.closeButton)?.isEnabled = !working;self.updater.setBusy(working || self.state.working) }
-            toolSetupWindow=makeWindow(title:"Set up Nashi tools",size:NSSize(width:646,height:690),view:ToolSetupView(model:model,onDone:{ [weak self] in
+            toolSetupWindow=makeWindow(title:"Set up Liman tools",size:NSSize(width:646,height:690),view:ToolSetupView(model:model,onDone:{ [weak self] in
                 guard ExternalToolSetup.status.ready else{return}
                 UserDefaults.standard.set(true,forKey:"hasCompletedWelcome");self?.toolSetupWindow?.close();self?.showHome()
             }))
@@ -268,7 +268,7 @@ enum NashiApplication {
         presentSettings(updates:false)
     }
     private func presentSettings(updates:Bool) {
-        if settings == nil { settings=makeWindow(title:"Nashi Settings",size:NSSize(width:860,height:700),view:SettingsView(updater:updater,showingUpdates:updates)) }
+        if settings == nil { settings=makeWindow(title:"Liman Settings",size:NSSize(width:860,height:700),view:SettingsView(updater:updater,showingUpdates:updates)) }
         settings?.contentMinSize=NSSize(width:790,height:590)
         settings?.makeKeyAndOrderFront(nil);NSApp.activate(ignoringOtherApps:true)
         if updates { NotificationCenter.default.post(name:.showUpdateSettings,object:nil) }
@@ -276,7 +276,7 @@ enum NashiApplication {
     @objc func showWelcome() {
         if welcome == nil {
             let panel=ToolPanel(contentRect:NSRect(x:0,y:0,width:760,height:520),styleMask:[.borderless,.closable],backing:.buffered,defer:false)
-            panel.title="Welcome to Nashi";panel.isReleasedWhenClosed=false;panel.isOpaque=false;panel.backgroundColor = .clear;panel.hasShadow=true;panel.hidesOnDeactivate=false
+            panel.title="Welcome to Liman";panel.isReleasedWhenClosed=false;panel.isOpaque=false;panel.backgroundColor = .clear;panel.hasShadow=true;panel.hidesOnDeactivate=false
             let view=WelcomeView(onDone:{ [weak self] in self?.finishWelcome() },onClose:{ [weak self] in self?.finishWelcome() },onMinimize:{ [weak self] in self?.welcome?.orderOut(nil) })
             panel.contentView=NSHostingView(rootView:view.nashiLanguage());panel.center();welcome=panel
         }
@@ -294,7 +294,7 @@ enum NashiApplication {
         else { showUpdateConnection() }
     }
     @objc func showUpdateConnection() {
-        if updateConnection == nil { updateConnection=makeWindow(title:"Nashi Update Connection",size:NSSize(width:620,height:720),view:UpdateConnectionView(updater:updater)) }
+        if updateConnection == nil { updateConnection=makeWindow(title:"Liman Update Connection",size:NSSize(width:620,height:720),view:UpdateConnectionView(updater:updater)) }
         updateConnection?.contentMinSize=NSSize(width:560,height:570)
         updateConnection?.makeKeyAndOrderFront(nil);NSApp.activate(ignoringOtherApps:true)
     }

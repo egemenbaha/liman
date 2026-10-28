@@ -1,0 +1,94 @@
+name: Liman full verification
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+concurrency:
+  group: verify-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  macos:
+    runs-on: macos-26
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Source privacy and secret scan
+        run: |
+          python3 scripts/audit-public-tree.py
+          python3 scripts/scan-secrets.py
+      - name: Install pinned conversion tools
+        run: |
+          scripts/setup-exiftool.sh
+          python3 scripts/setup-liman-tools.py
+      - name: Full Swift regression suite
+        run: |
+          set -o pipefail
+          mkdir -p build
+          swift test 2>&1 | tee build/full-swift-tests.log
+      - name: Fork security and update isolation
+        run: |
+          python3 scripts/test-liman-security.py
+          python3 scripts/test-liman-configuration.py
+          python3 scripts/test-liman-updates.py
+      - name: Package and verify native app
+        run: |
+          NASHI_SIGNING_MODE=ad-hoc scripts/build-app.sh debug
+          python3 scripts/test-liman-app.py
+          python3 scripts/test-native-ui.py --app build/Liman.app/Contents/MacOS/Liman --output build/native-ui
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: macos-verification
+          path: |
+            build/full-swift-tests.log
+            build/native-ui
+          retention-days: 7
+  windows:
+    runs-on: windows-2025
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1
+        with:
+          dotnet-version: '10.0.x'
+      - name: Restore and compile Windows reference implementation
+        shell: pwsh
+        run: |
+          dotnet restore windows/Nashi.Windows --locked-mode
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          dotnet publish windows/Nashi.Windows -c Release --no-restore -o build/windows/Nashi
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Core regression and real media exports
+        shell: pwsh
+        env:
+          NASHI_VERIFY_DOWNLOAD_TOOLS: '1'
+          NASHI_VERIFY_TOOLS_DIRECTORY: '${{ runner.temp }}\Nashi-Test-Tools'
+        run: |
+          dotnet run --project windows/Nashi.Verify -c Release
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Native WPF regression suite
+        shell: pwsh
+        env:
+          NASHI_SMOKE_DIRECTORY: '${{ github.workspace }}\build\windows-smoke'
+        run: |
+          $start = [Diagnostics.ProcessStartInfo]::new((Resolve-Path build/windows/Nashi/Nashi.exe))
+          $start.UseShellExecute = $false
+          $start.ArgumentList.Add('--smoke-test')
+          $process = [Diagnostics.Process]::Start($start)
+          $handle = $process.Handle
+          if (!$process.WaitForExit(900000)) { $process.Kill($true); throw 'Native desktop test timed out' }
+          if ($process.ExitCode -ne 0) {
+            if (Test-Path build/windows-smoke/error.txt) { Get-Content build/windows-smoke/error.txt }
+            throw 'Native desktop test failed'
+          }
+          Get-Content build/windows-smoke/smoke.json
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: windows-test-evidence
+          path: build/windows-smoke
+          retention-days: 7

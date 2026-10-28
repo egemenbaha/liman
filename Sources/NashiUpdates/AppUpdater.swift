@@ -41,8 +41,11 @@ import Sparkle
         static let previousAutomaticChecks = "TangerineUpdatePreviousAutomaticChecks"
     }
     public var isConfigured: Bool { controller != nil && configurationError == nil }
+    // Default-deny even for an unpackaged `swift run` build. Re-enabling
+    // requires an explicit code review and a separate fork signing identity.
+    private var localFork: Bool { bundleInfo["LimanLocalOnly"] as? Bool == true }
     public var canChangeConnection: Bool {
-        !sessionInProgress && controller?.updater.sessionInProgress != true && !isConnecting && !isBusy && !waitingForCurrentTask
+        !localFork && !sessionInProgress && controller?.updater.sessionInProgress != true && !isConnecting && !isBusy && !waitingForCurrentTask
     }
 
     public override convenience init() {
@@ -52,7 +55,7 @@ import Sparkle
     public init(credentials: UpdateCredentialStore, defaults: UserDefaults, info:[String:Any]? = nil) {
         self.credentials = credentials
         self.defaults = defaults
-        self.bundleInfo = info ?? Bundle.main.infoDictionary ?? [:]
+        self.bundleInfo = info ?? (Bundle.main.infoDictionary ?? [:]).merging(["LimanLocalOnly": true]) { _, value in value }
         self.validateGitHubAccess = { repository, token in
             try await GitHubUpdateClient(repository: repository, token: token).validateAccess()
         }
@@ -64,13 +67,14 @@ import Sparkle
          validateAccess: @escaping (GitHubRepository, String?) async throws -> Void, info:[String:Any]? = nil) {
         self.credentials = credentials
         self.defaults = defaults
-        self.bundleInfo = info ?? Bundle.main.infoDictionary ?? [:]
+        self.bundleInfo = info ?? [:]
         self.validateGitHubAccess = validateAccess
         super.init()
         restoreConnection()
     }
 
     private func restoreConnection() {
+        guard !localFork else { requiresToken = false; return }
         PublicUpdateChannel(info:bundleInfo)?.migrate(defaults)
         if let slug = defaults.string(forKey: Preference.repository) {
             if let saved=try? GitHubRepository(slug) {
@@ -84,6 +88,7 @@ import Sparkle
     }
 
     public func start() {
+        guard !localFork else { configurationError = "Liman is a local development fork. Its own signed update channel is not configured."; return }
         guard controller == nil else { return }
         do {
             configuration = try UpdateConfiguration(info: bundleInfo, repository: repository)
@@ -139,6 +144,7 @@ import Sparkle
     }
 
     public func setAutomaticChecks(_ enabled: Bool) {
+        guard !localFork else { return }
         if repository != nil {
             defaults.set(enabled, forKey: Preference.automaticChecks)
             automaticallyChecksForUpdates = enabled

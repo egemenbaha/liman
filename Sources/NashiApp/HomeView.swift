@@ -25,7 +25,7 @@ struct HomeView:View {
         VStack(spacing:0) {
             HStack(spacing:10) {
                 NashiMark(size:40)
-                Text("Nashi").font(.system(size:19,weight:.bold,design:.rounded)).tracking(-0.5)
+                Text("Liman · Local Fork").font(.system(size:19,weight:.bold,design:.rounded)).tracking(-0.5)
                 Spacer()
                 if Bundle.main.object(forInfoDictionaryKey:"NashiExternalTools") as? Bool == true {
                     Button(toolsReady ? "Tools ready":"Finish setup") {NotificationCenter.default.post(name:.showToolSetup,object:nil)}

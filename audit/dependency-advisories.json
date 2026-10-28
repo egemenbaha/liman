@@ -1,0 +1,163 @@
+{
+  "queriedAtUTC": "2026-10-28T09:43:30.227395+00:00",
+  "source": "https://api.osv.dev/v1/querybatch",
+  "scope": "Pinned NuGet, selected vendored packages, yt-dlp and Sparkle commit. Empty results are not a security guarantee or proof of OSV ecosystem coverage.",
+  "results": [
+    {
+      "query": {
+        "package": {
+          "ecosystem": "NuGet",
+          "name": "BouncyCastle.Cryptography"
+        },
+        "version": "2.7.0"
+      },
+      "result": {}
+    },
+    {
+      "query": {
+        "package": {
+          "ecosystem": "NuGet",
+          "name": "Magick.NET-Q8-AnyCPU"
+        },
+        "version": "15.0.0"
+      },
+      "result": {}
+    },
+    {
+      "query": {
+        "package": {
+          "ecosystem": "NuGet",
+          "name": "PdfPig"
+        },
+        "version": "0.1.16"
+      },
+      "result": {}
+    },
+    {
+      "query": {
+        "package": {
+          "ecosystem": "NuGet",
+          "name": "PDFsharp"
+        },
+        "version": "6.2.4"
+      },
+      "result": {}
+    },
+    {
+      "query": {
+        "package": {
+          "ecosystem": "NuGet",
+          "name": "SharpCompress"
+        },
+        "version": "0.50.5"
+      },
+      "result": {}
+    },
+    {
+      "query": {
+        "package": {
+          "ecosystem": "NuGet",
+          "name": "System.Security.Cryptography.Pkcs"
+        },
+        "version": "10.0.13"
+      },
+      "result": {}
+    },
+    {
+      "query": {
+        "package": {
+          "ecosystem": "NuGet",
+          "name": "ZXing.Net"
+        },
+        "version": "0.16.11"
+      },
+      "result": {}
+    },
+    {
+      "query": {
+        "package": {
+          "ecosystem": "NuGet",
+          "name": "Magick.NET.Core"
+        },
+        "version": "15.0.0"
+      },
+      "result": {}
+    },
+    {
+      "query": {
+        "package": {
+          "ecosystem": "NuGet",
+          "name": "Microsoft.Extensions.DependencyInjection.Abstractions"
+        },
+        "version": "8.0.2"
+      },
+      "result": {}
+    },
+    {
+      "query": {
+        "package": {
+          "ecosystem": "NuGet",
+          "name": "Microsoft.Extensions.Logging.Abstractions"
+        },
+        "version": "8.0.3"
+      },
+      "result": {}
+    },
+    {
+      "query": {
+        "package": {
+          "ecosystem": "NuGet",
+          "name": "bblanchon.PDFium.Win32"
+        },
+        "version": "155.0.8044"
+      },
+      "result": {}
+    },
+    {
+      "query": {
+        "package": {
+          "ecosystem": "npm",
+          "name": "pdf-lib"
+        },
+        "version": "1.17.1"
+      },
+      "result": {}
+    },
+    {
+      "query": {
+        "package": {
+          "ecosystem": "npm",
+          "name": "cupertino-files"
+        },
+        "version": "0.4.0"
+      },
+      "result": {}
+    },
+    {
+      "query": {
+        "package": {
+          "ecosystem": "npm",
+          "name": "@esbuild/darwin-arm64"
+        },
+        "version": "0.25.12"
+      },
+      "result": {}
+    },
+    {
+      "query": {
+        "package": {
+          "ecosystem": "PyPI",
+          "name": "yt-dlp"
+        },
+        "version": "2026.8.19"
+      },
+      "result": {}
+    },
+    {
+      "query": {
+        "commit": "eef1a539a373c1f1a320624b1130fc5de7b2e100"
+      },
+      "result": {}
+    }
+  ]
+}

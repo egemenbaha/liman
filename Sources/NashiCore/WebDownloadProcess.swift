@@ -21,7 +21,7 @@ enum WebDownloadProcess {
         posix_spawnattr_setflags(&attributes,Int16(POSIX_SPAWN_SETPGROUP))
         posix_spawnattr_setpgroup(&attributes,0)
         let args=([executable.path]+arguments).map{strdup($0)}+[nil]
-        let environment=ProcessInfo.processInfo.environment.map{strdup("\($0.key)=\($0.value)")}+[nil]
+        let environment=ProcessRunner.safeEnvironment().map{strdup("\($0.key)=\($0.value)")}+[nil]
         defer { for p in args { free(p) };for p in environment { free(p) } }
         var pid:pid_t=0
         let status=args.withUnsafeBufferPointer { argv in environment.withUnsafeBufferPointer { env in

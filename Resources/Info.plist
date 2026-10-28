@@ -4,13 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
-	<key>CFBundleLocalizations</key>
-	<array>
-		<string>en</string>
-		<string>tr</string>
-	</array>
 	<key>CFBundleDisplayName</key>
-	<string>Nashi</string>
+	<string>Liman</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -25,13 +20,18 @@
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
-	<string>Nashi</string>
+	<string>Liman</string>
 	<key>CFBundleIconFile</key>
-	<string>NashiIcon</string>
+	<string>LimanIcon</string>
 	<key>CFBundleIdentifier</key>
-	<string>local.tangerine.replica</string>
+	<string>local.liman.filetoolkit</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>tr</string>
+	</array>
 	<key>CFBundleName</key>
-	<string>Nashi</string>
+	<string>Liman</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -48,6 +48,8 @@
 	<string>13.0</string>
 	<key>LSUIElement</key>
 	<true/>
+	<key>LimanLocalOnly</key>
+	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsLocalNetworking</key>
@@ -55,16 +57,16 @@
 	</dict>
 	<key>NSHighResolutionCapable</key>
 	<true/>
+	<key>NashiExternalTools</key>
+	<true/>
 	<key>SUAllowsAutomaticUpdates</key>
 	<false/>
 	<key>SUAutomaticallyUpdate</key>
 	<false/>
 	<key>SUEnableAutomaticChecks</key>
-	<true/>
+	<false/>
 	<key>SUEnableSystemProfiling</key>
 	<false/>
-	<key>SUPublicEDKey</key>
-	<string>VPJpPpgXKda4c3ZOvP4zH8koa3ht1jm6lJWNBr+2saU=</string>
 	<key>SURequireSignedFeed</key>
 	<true/>
 	<key>SUScheduledCheckInterval</key>

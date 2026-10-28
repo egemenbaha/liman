@@ -37,7 +37,7 @@ struct UpdateSettingsView:View {
                 HStack(spacing:17) {
                     NashiMark(size:62,happy:updater.availableVersion != nil)
                     VStack(alignment:.leading,spacing:6) {
-                        Text("Nashi \(version)").font(.system(size:21,weight:.bold,design:.rounded))
+                        Text("Liman \(version)").font(.system(size:21,weight:.bold,design:.rounded))
                         Text("Build \(build)").font(.caption).foregroundStyle(.secondary)
                     }
                     Spacer()
@@ -112,7 +112,7 @@ struct UpdateConnectionView:View {
         ScrollView {
             VStack(alignment:.leading,spacing:20) {
                 NashiPageHeading(eyebrow:"Update connection",title:"Fresh versions, one click away.",subtitle:"Connect your GitHub releases once. Nashi handles the next update checks.")
-                Text("Nashi \(Bundle.main.object(forInfoDictionaryKey:"CFBundleShortVersionString") as? String ?? "Development") · Build \(Bundle.main.object(forInfoDictionaryKey:"CFBundleVersion") as? String ?? "—")")
+                Text("Liman \(Bundle.main.object(forInfoDictionaryKey:"CFBundleShortVersionString") as? String ?? "Development") · Build \(Bundle.main.object(forInfoDictionaryKey:"CFBundleVersion") as? String ?? "—")")
                     .font(.caption).foregroundStyle(.secondary)
                 if let connected=updater.repository {
                     Label("Connected to \(connected.slug)",systemImage:"checkmark.circle.fill")

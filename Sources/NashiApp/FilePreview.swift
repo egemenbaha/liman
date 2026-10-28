@@ -34,7 +34,7 @@ import NashiCore
     @objc private func didClose(){player?.pause();player?.replaceCurrentItem(with:nil);player=nil;preview?.previewItem=nil;preview=nil}
     func close(){window?.close();didClose()}
     private func load() {
-        guard let window else{return};didClose();let url=urls[index];window.title=url.lastPathComponent+" · "+L10n.text("Preview")+" · Nashi"
+        guard let window else{return};didClose();let url=urls[index];window.title=url.lastPathComponent+" · "+L10n.text("Preview")+" · Liman"
         let root=NSView();window.contentView=root
         let header=NSStackView();header.orientation = .horizontal;header.spacing=8;caption.stringValue="\(url.lastPathComponent) · \(index+1) / \(urls.count)";caption.lineBreakMode = .byTruncatingMiddle;header.addArrangedSubview(caption)
         for (label,selector) in [("←",#selector(previous)),("→",#selector(next)),("Open",#selector(openFile))] {header.addArrangedSubview(NSButton(title:L10n.text(label),target:self,action:selector))}
